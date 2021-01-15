@@ -4,6 +4,39 @@
     <meta charset="utf-8"/>
     <title>Mausritter Item Card Generator</title>
     <link rel="stylesheet" href="https://use.typekit.net/srk3hpl.css">
+    <script type="text/javascript">
+      function toggleClass(element, toggle, classname) {
+        if (toggle) {
+          element.classList.add(classname);
+        } else {
+          element.classList.remove(classname);
+        }
+      }
+
+      function draw() {
+        let name = document.getElementById('name-input').value;
+        let desc = document.getElementById('desc-input').value;
+        let damage = document.getElementById('damage-input').value;
+        let usage = document.getElementById('usage-input').value;
+        let star = document.getElementById('star-toggle').checked;
+        let foreground = document.getElementById('foreground-colour').value;
+        let background = document.getElementById('background-colour').value;
+        let border = document.getElementById('border-toggle').checked;
+        let divider = document.getElementById('divider-toggle').checked;
+        let width = document.getElementById('width-input').value;
+        let height = document.getElementById('height-input').value;
+        //let icon = document.querySelector('input[name="icon"]:checked').value;
+
+        let card = document.getElementById('editcard');
+        toggleClass(card, border, 'border');
+        let elem = card.querySelector('.header');
+        toggleClass(elem, divider, 'divider');
+        toggleClass(elem, star, 'star');
+
+        card.querySelector('.header').innerHTML = name;
+        card.querySelector('.note').innerHTML = desc;
+      }
+    </script>
     <style>
       h1 {
         font: 48px ff-brokenscript-bc-web, serif;
@@ -48,6 +81,9 @@
         margin: 0px;
         font: 18px ff-brokenscript-bc-web, serif;
         height: 20px;
+      }
+      .itemcard .header.star::before {
+        content: "★ ";
       }
       .itemcard .header.divider {
         border-bottom: 1px solid black;
@@ -95,14 +131,59 @@
   <body>
     <h1>Item Card Printer</h1>
 
+    <p>
+      <label for="name-input">Name</label>
+      <input type="text" id="name-input" value="Item" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="desc-input">Description</label>
+      <input type="text" id="desc-input" value="Heavy" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="width-input">Width</label>
+      <input type="number" id="width-input" min="1" max="2" value="1" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="height-input">Height</label>
+      <input type="number" id="height-input" min="1" max="2" value="1" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="damage-input">Damage</label>
+      <input type="text" id="damage-input" value="d3" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="usage-input">Usage</label>
+      <input type="number" id="usage-input" min="0" max="5" value="0" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="star-toggle">Star</label>
+      <input type="checkbox" id="star-toggle" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="foreground-colour">Foreground</label>
+      <input type="color" id="foreground-colour" value="#000000" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="background-colour">Background</label>
+      <input type="color" id="background-colour" value="#ffffff" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="border-toggle">Border</label>
+      <input type="checkbox" id="border-toggle" checked oninput="draw();"/>
+    </p>
+    <p>
+      <label for="divider-toggle">Divider</label>
+      <input type="checkbox" id="divider-toggle" checked oninput="draw();"/>
+    </p>
+
     <div class="gridwrapper">
-      <div class="itemcard border">
+      <div id="editcard" class="itemcard border">
         <div class="header divider">Crossbow</div>
         <div class="note">Light ranged</div>
         <div class="damage">d6</div>
       </div>
       <div class="itemcard border" style="background-color: rgb(227, 193, 172);">
-        <div class="header divider">★ Fireball</div>
+        <div class="header star divider">Fireball</div>
         <div class="damage">d6</div>
         <div class="imagewrapper">
         <img class="image" src="spell-1.png">
