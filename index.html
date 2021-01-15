@@ -20,9 +20,9 @@
             let background = document.getElementById('background-colour').value;
             let border = document.getElementById('border-toggle').checked;
             let divider = document.getElementById('divider-toggle').checked;
-            let with_image = document.getElementById('image-toggle').checked;
             let width = document.getElementById('width-input').value;
             let height = document.getElementById('height-input').value;
+            let icon = document.querySelector('input[name="icon"]:checked').value;
 
             const unit = 100;
             const headerHeight = 28;
@@ -94,9 +94,8 @@
               }
             }
 
-            if (with_image) {
-              var image = new Image();
-              image.src = "spell-1.png";
+            if (icon) {
+              let image = document.getElementById(icon);
               ctx.globalCompositeOperation = "multiply";
               ctx.drawImage (image, offset, headerHeight+offset*2+10, 50, 50);
             }
@@ -138,7 +137,7 @@
     </p>
     <p>
       <label for="usage-input">Usage</label>
-      <input type="number" id="usage-input" min="0" max="5" value="1" oninput="draw();"/>
+      <input type="number" id="usage-input" min="0" max="5" value="0" oninput="draw();"/>
     </p>
     <p>
       <label for="star-toggle">Star</label>
@@ -161,8 +160,18 @@
       <input type="checkbox" id="divider-toggle" checked oninput="draw();"/>
     </p>
     <p>
-      <label for="image-toggle">Image</label>
-      <input type="checkbox" id="image-toggle" oninput="draw();"/>
+      <label>
+        <input type="radio" name="icon" value="" checked oninput="draw();">
+        None
+      </label>
+      <label>
+        <input type="radio" name="icon" value="spell-1" oninput="draw();">
+        <img id="spell-1" src="spell-1.png" width="50">
+      </label>
+      <label>
+        <input type="radio" name="icon" value="spell-2" oninput="draw();">
+        <img id="spell-2" src="spell-2.png" width="50">
+      </label>
     </p>
     <canvas id="canvas" width="350" height="350">
       Sorry, I need HTML canvas.
