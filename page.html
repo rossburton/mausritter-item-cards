@@ -9,6 +9,13 @@
         font: 48px ff-brokenscript-bc-web, serif;
       }
 
+      .gridwrapper {
+        display: grid;
+        grid-auto-columns: 100px;
+        grid-auto-rows: repeat(4, 100px);
+        grid-auto-flow: column;
+      }
+
       .itemcard {
         display: inline-block;
         width: 100px;
@@ -18,7 +25,6 @@
         position: relative;
         text-align: center;
         box-sizing: border-box;
-        
       }
       .itemcard.border {
         border: 1px solid black;
@@ -28,12 +34,14 @@
       }
       .itemcard.width-2 {
         width: 200px;
+        grid-column-end: span 2;
       }
       .itemcard.height-1 {
         height: 100px;
       }
       .itemcard.height-2 {
         height: 200px;
+        grid-row-end: span 2;
       }
       .itemcard .header {
         text-align: left;
@@ -67,6 +75,11 @@
         border-radius: 50%;
         float: left;
       }
+      .itemcard .desc {
+        bottom: 100px;
+        text-align: left;
+        font: 12px interstate-condensed, sans-serif;
+      }
       .itemcard img.image {
         padding: 4px;
         max-width: 60px;
@@ -78,31 +91,53 @@
   </head>
   <body>
     <h1>Item Card Printer</h1>
-    <div class="itemcard border">
-      <div class="header divider">Crossbow</div>
-      <div class="note">Light ranged</div>
-      <div class="damage">d6</div>
-    </div>
-    <div class="itemcard border height-2">
-      <div class="header divider">Bow</div>
-      <div class="note">Heavy ranged</div>
-      <div class="damage">d6/d8</div>
-    </div>
-    <div class="itemcard border">
-      <div class="header divider">★ Fireball</div>
-      <div class="damage">d6</div>
-      <img class="image" src="spell-1.png">
-    </div>
-    <div class="itemcard border">
-      <div class="header divider">Torch</div>
-      <div class="usage"></div><div class="usage"></div>
-    </div>
-    <div class="itemcard border width-2">
-      <div class="header divider">Light Armour</div>
-      <div class="damage">d6</div>
-    </div>
-    <div class="itemcard border width-2">
-      <div class="header">Cursed</div>
-    </div>
+
+    <div class="gridwrapper">
+      <div class="itemcard border">
+        <div class="header divider">Crossbow</div>
+        <div class="note">Light ranged</div>
+        <div class="damage">d6</div>
+      </div>
+      <div class="itemcard border">
+        <div class="header divider">★ Fireball</div>
+        <div class="damage">d6</div>
+        <div class="imagewrapper">
+        <img class="image" src="spell-1.png">
+        </div>
+      </div>
+      <div class="itemcard border">
+        <div class="header divider">Torch</div>
+        <div class="usage"></div><div class="usage"></div>
+      </div>
+      <div class="itemcard border">
+        <div class="header divider">Torch</div>
+        <div class="usage"></div><div class="usage"></div>
+      </div>
+      <div class="itemcard border">
+        <div class="header divider">Torch</div>
+        <div class="usage"></div><div class="usage"></div>
+      </div>
+      <div class="itemcard border">
+        <div class="header divider">Torch</div>
+        <div class="usage"></div><div class="usage"></div>
+      </div>
+      <div class="itemcard border">
+        <div class="header divider">Torch</div>
+        <div class="usage"></div><div class="usage"></div>
+      </div>
+      <div class="itemcard border width-2">
+        <div class="header divider">Light Armour</div>
+        <div class="damage">d6</div>
+      </div>
+      <div class="itemcard border">
+        <div class="header">Cursed</div>
+        <div class="desc"><b>Clear</b><br>Fart six times</div>
+      </div>
+      <div class="itemcard border height-2">
+        <div class="header divider">Bow</div>
+        <div class="note">Heavy ranged</div>
+        <div class="damage">d6/d8</div>
+      </div>
+  </div>
   </body>
 </html>
