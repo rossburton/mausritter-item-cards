@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>SVG hack</title>
+    <link rel="stylesheet" href="https://use.typekit.net/srk3hpl.css">
+    <style>
+        .stroke { fill: white; stroke: black; stroke-width: 2px; }
+        .usage { fill: white; stroke: black; stroke-width: 1.5px; }
+        .header { fill: black; font: 20px ff-brokenscript-bc-web, serif; }
+        text.damage {fill: black; font: bold 16px interstate-condensed, sans-serif; }
+        .detail {fill: black; font: bold 15px interstate-condensed, sans-serif; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
+  </head>
+  <body>
+    <img src="sample.png" width="150"/>
+    <script>
+      const initialState = {
+      name: 'Sword',
+      usage: 3,
+      damage: 'd6/d8',
+      mechanicDetail: '',
+      clearDetail: '',
+      classDetail: 'Medium',
+      image: '',
+      star: false,
+      backgroundColor: '#ffffff',
+      foregroundColor: '#000000',
+      width: 1,
+      height: 1,
+      divider: true,
+      border: true,
+    };
+
+    function renderItem(item) {
+      var draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
+
+      if (item.border) draw.rect(draw.width()-2, draw.height()-2).move(1, 1).addClass("stroke");
+
+      if (item.divider) draw.line(1, 35, draw.width()-2, 35).addClass("stroke");
+
+      if (item.name.length) {
+        draw.plain(item.name).move(8, 11).addClass("header");
+      }
+
+      for (let i = 0; i < item.usage; i++) {
+        const x = 8 + (i % 3) * 18;
+        const y = 45 + Math.floor(i / 3) * 18;
+        draw.circle(15).move(x, y).addClass("usage");
+      }
+
+      if (item.damage.length) {
+        group = draw.group();
+        let bbox = group.plain(item.damage).addClass("damage").bbox();
+        bbox.x -= 4;
+        bbox.y -= 4;
+        bbox.width += 8;
+        bbox.height += 8;
+        group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass("stroke").backward();
+        group.move(draw.width() - 8 - bbox.width, 35+8);
+      }
+
+      if (item.classDetail.length) {
+        draw.plain(item.classDetail).move(8, draw.height() - 8-17).addClass("detail");
+      }
+    }
+    </script>
+    <script>
+    renderItem(initialState);
+    </script>
+  </body>
+</html>
