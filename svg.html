@@ -37,6 +37,24 @@
       return draw.polyline(points);
     }
 
+    function wrapText(text, maxWidth, string) {
+      const words = string.split(/\s+/);
+      var span = text.tspan('');
+      let line = ''
+      for(var n = 0; n < words.length; n++) {
+        span.text(line + words[n] + " ");
+        if (span.length() > maxWidth && n > 0) {
+          span.text(line);
+          span.newLine();
+          span = text.tspan(words[n] + '');
+          line = words[n] + " ";
+        } else {
+          line = span.text()
+        }
+      }
+      span.newLine();
+    }
+
     function renderItem(item) {
       var draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
       // TODO draw.css should work?
@@ -78,24 +96,7 @@
         var text = draw.text(function(t) {
           t.addClass("mechanics");
           t.leading('1.2em');
-          maxWidth = 150 - 8 - 8;
-          var span = t.tspan('');
-          const words = item.mechanicDetail.split(/\s+/);
-          let line = ''
-          for(var n = 0; n < words.length; n++) {
-            console.log(words[n]);
-            span.text(line + words[n] + " ");
-            if (span.length() > maxWidth && n > 0) {
-              span.text(line);
-              span.newLine();
-              span = t.tspan(words[n] + '');
-              line = words[n] + " ";
-            } else {
-              line = span.text()
-            }
-          }
-          span.newLine();
-          // TODO adjust on divider
+          wrapText(t, 150 - 8 - 8, item.mechanicDetail);
         }).move(8, 32);
       }
     }
