@@ -104,16 +104,17 @@
       }
 
       if (item.damage.length) {
-        group = draw.group();
-        let bbox = group.plain(item.damage).addClass("damage").bbox().grow(5);
-        group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass("stroke outline").backward();
-        group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass("stroke").backward();
+        let group = draw.group();
+        let label = group.plain(item.damage).addClass("damage");
+        let bbox = label.bbox().grow(5);
+        let box = group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass("stroke").insertBefore(label);
+        box.clone().addClass("outline").insertBefore(box);
         group.move(draw.width() - padding - bbox.width, 35 + padding);
       }
 
       if (item.classDetail.length) {
-        draw.plain(item.classDetail).move(padding, draw.height() - padding - 17).addClass("detail outline");
-        draw.plain(item.classDetail).move(padding, draw.height() - padding - 17).addClass("detail");
+        let label = draw.plain(item.classDetail).move(padding, draw.height() - padding - 17).addClass("detail");
+        label.clone().addClass("outline").insertBefore(label);
       }
 
       if (item.mechanicDetail.length) {
