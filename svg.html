@@ -50,23 +50,25 @@
       }
     });
 
-    function wrapText(text, maxWidth, string) {
-      const words = string.split(/\s+/);
-      var span = text.tspan('');
-      let line = ''
-      for(var n = 0; n < words.length; n++) {
-        span.text(line + words[n] + " ");
-        if (span.length() > maxWidth && n > 0) {
-          span.text(line);
-          span.newLine();
-          span = text.tspan(words[n] + '');
-          line = words[n] + " ";
-        } else {
-          line = span.text()
+    SVG.extend(SVG.Text, {
+      wrap: function(string, maxWidth) {
+        const words = string.split(/\s+/);
+        var span = this.tspan('');
+        let line = ''
+        for(var n = 0; n < words.length; n++) {
+          span.text(line + words[n] + " ");
+          if (span.length() > maxWidth && n > 0) {
+            span.text(line);
+            span.newLine();
+            span = this.tspan(words[n] + '');
+            line = words[n] + " ";
+          } else {
+            line = span.text()
+          }
         }
+        span.newLine();
       }
-      span.newLine();
-    }
+    });
 
     function renderItem(item) {
       var draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
@@ -105,7 +107,7 @@
         var text = draw.text(function(t) {
           t.addClass("mechanics");
           t.leading('1.2em');
-          wrapText(t, 150 - 8 - 8, item.mechanicDetail);
+          t.wrap(item.mechanicDetail, 150 - 8 - 8);
         }).move(8, 32);
       }
 
@@ -114,7 +116,7 @@
           t.addClass("clear");
           t.leading('1.2em');
           t.tspan('Clear:').font('weight', 'bold').newLine();
-          wrapText(t, 150 - 8 - 8, item.clearDetail);
+          t.wrap(item.clearDetail, 150 - 8 - 8);
         });
         text.move(8, 150 - 8 - text.bbox().height);
       }
