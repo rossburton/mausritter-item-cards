@@ -9,7 +9,7 @@
         text.damage {fill: black; font: bold 16px interstate-condensed, sans-serif; }
         .mechanics {fill: black; font: italic 14px interstate-condensed, sans-serif; }
         .clear {fill: black; font: 14px interstate-condensed, sans-serif; }
-        .outline { stroke: white; stroke-width: 5px; }
+        .outline { stroke: white; stroke-width: 4px; }
         .detail {fill: black; font: bold 15px interstate-condensed, sans-serif; }
         .star {fill: black;}
     </style>
@@ -75,7 +75,7 @@
       const padding = 8;
 
       var draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
-      // TODO draw.css should work?
+      // TODO fixed in svgjs master. this shoud work: draw.put(new SVG.Style()).rule(selector, obj)
       //draw.style(".header", {fill: "black", font: "20px ff-brokenscript-bc-web, serif"});
 
       var d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).css("fill", item.backgroundColor);
@@ -106,6 +106,7 @@
       if (item.damage.length) {
         group = draw.group();
         let bbox = group.plain(item.damage).addClass("damage").bbox().grow(5);
+        group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass("stroke outline").backward();
         group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass("stroke").backward();
         group.move(draw.width() - padding - bbox.width, 35 + padding);
       }
