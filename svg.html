@@ -71,6 +71,7 @@
     });
 
     function renderItem(item) {
+      const padding = 8;
       var draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
       // TODO draw.css should work?
       //draw.style(".header", {fill: "black", font: "20px ff-brokenscript-bc-web, serif"});
@@ -83,7 +84,7 @@
       if (item.star) draw.star(5, 11, 5).center(17, 35/2).addClass("star");
 
       if (item.name.length) {
-        draw.plain(item.name).move(item.star ? 32 : 8, 11).addClass("header");
+        draw.plain(item.name).move(item.star ? 32 : padding, 11).addClass("header");
       }
 
       for (let i = 0; i < item.usage; i++) {
@@ -96,19 +97,19 @@
         group = draw.group();
         let bbox = group.plain(item.damage).addClass("damage").bbox().grow(5);
         group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass("stroke").backward();
-        group.move(draw.width() - 8 - bbox.width, 35+8);
+        group.move(draw.width() - padding - bbox.width, 35 + padding);
       }
 
       if (item.classDetail.length) {
-        draw.plain(item.classDetail).move(8, draw.height() - 8-17).addClass("detail");
+        draw.plain(item.classDetail).move(padding, draw.height() - padding - 17).addClass("detail");
       }
 
       if (item.mechanicDetail.length) {
         var text = draw.text(function(t) {
           t.addClass("mechanics");
           t.leading('1.2em');
-          t.wrap(item.mechanicDetail, 150 - 8 - 8);
-        }).move(8, 32);
+          t.wrap(item.mechanicDetail, 150 - padding * 2);
+        }).move(8, item.divider ? 32 + padding : 32);
       }
 
       if (item.clearDetail.length) {
@@ -116,9 +117,9 @@
           t.addClass("clear");
           t.leading('1.2em');
           t.tspan('Clear:').font('weight', 'bold').newLine();
-          t.wrap(item.clearDetail, 150 - 8 - 8);
+          t.wrap(item.clearDetail, 150 - padding * 2);
         });
-        text.move(8, 150 - 8 - text.bbox().height);
+        text.move(padding, 150 - padding - text.bbox().height);
       }
     }
     </script>
@@ -187,10 +188,27 @@
             border: true,
             star: false,
         };
+        const condition2 = {
+            name: 'Injured',
+            usage: 0,
+            damage: '',
+            mechanicDetail: 'Disadvantage on STR and DEX saves',
+            clearDetail: 'After full rest',
+            classDetail: '',
+            image: '',
+            backgroundColor: '#ff4444',
+            foregroundColor: '#000000',
+            width: 1,
+            height: 1,
+            divider: true,
+            border: true,
+            star: false,
+        };
     renderItem(weapon);
     renderItem(armour);
     renderItem(spell);
     renderItem(condition);
+    renderItem(condition2);
     </script>
   </body>
 </html>
