@@ -9,6 +9,7 @@
         text.damage {fill: black; font: bold 16px interstate-condensed, sans-serif; }
         .mechanics {fill: black; font: italic 14px interstate-condensed, sans-serif; }
         .clear {fill: black; font: 14px interstate-condensed, sans-serif; }
+        .outline { stroke: white; stroke-width: 5px; }
         .detail {fill: black; font: bold 15px interstate-condensed, sans-serif; }
         .star {fill: black;}
     </style>
@@ -110,7 +111,7 @@
       }
 
       if (item.classDetail.length) {
-        // TODO outline
+        draw.plain(item.classDetail).move(padding, draw.height() - padding - 17).addClass("detail outline");
         draw.plain(item.classDetail).move(padding, draw.height() - padding - 17).addClass("detail");
       }
 
