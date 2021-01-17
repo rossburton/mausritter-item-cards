@@ -7,6 +7,7 @@
         .usage { fill: white; stroke: black; stroke-width: 1.5px; }
         .header { fill: black; font: 20px ff-brokenscript-bc-web, serif; }
         text.damage {fill: black; font: bold 16px interstate-condensed, sans-serif; }
+        .mechanics {fill: black; font: italic 14px interstate-condensed, sans-serif; }
         .detail {fill: black; font: bold 15px interstate-condensed, sans-serif; }
         .star {fill: black;}
     </style>
@@ -17,36 +18,36 @@
     <img src="sample.png" height="320"/>
     </p>
     <script>
-    function makeStar(draw, spikes, outerRadius, innerRadius) {
-      var rot = Math.PI / 2 * 3;
-      var x = 0;
-      var y = 0;
-      var step = Math.PI / spikes;
+    function makeStar(draw, spikes, outer, inner) {
       var points = [];
+      const degrees = 360/spikes;
+      for (i = 0; i < spikes; i++) {
+        a = i * degrees + 90
+        x = outer + inner * Math.cos(a * Math.PI / 180)
+        y = outer + inner * Math.sin(a * Math.PI / 180)
 
-      points.push([0, 0 - innerRadius]);
-      for (var i = 0; i < spikes; i++) {
-        x = Math.cos(rot) * outerRadius;
-        y = Math.sin(rot) * outerRadius;
-        points.push([x, y]);
-        rot += step;
+        points.push([x, y])
 
-        x = Math.cos(rot) * innerRadius;
-        y = Math.sin(rot) * innerRadius;
-        points.push([x, y]);
-        rot += step
+        a += degrees / 2
+        x = outer + outer * Math.cos(a * Math.PI / 180)
+        y = outer + outer * Math.sin(a * Math.PI / 180)
+
+        points.push([x, y])
       }
-      points.push([0, 0 - outerRadius]);
-
       return draw.polyline(points);
     }
 
     function renderItem(item) {
       var draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
+      // TODO draw.css should work?
+      //draw.style(".header", {fill: "black", font: "20px ff-brokenscript-bc-web, serif"});
 
-      if (item.border) draw.rect(draw.width()-2, draw.height()-2).move(1, 1).addClass("stroke");
+      var d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).css("fill", item.backgroundColor);
+      if (item.border) d.addClass("stroke");
 
       if (item.divider) draw.line(1, 35, draw.width()-2, 35).addClass("stroke");
+
+      if (item.star) makeStar(draw, 5, 11, 5).center(17, 35/2).addClass("star");
 
       if (item.name.length) {
         draw.plain(item.name).move(item.star ? 32 : 8, 11).addClass("header");
@@ -73,7 +74,30 @@
         draw.plain(item.classDetail).move(8, draw.height() - 8-17).addClass("detail");
       }
 
-      if (item.star) makeStar(draw, 5, 11, 5).center(17, 35/2).addClass("star");
+      if (item.mechanicDetail.length) {
+        var text = draw.text(function(t) {
+          t.addClass("mechanics");
+          t.leading('1.2em');
+          maxWidth = 150 - 8 - 8;
+          var span = t.tspan('');
+          const words = item.mechanicDetail.split(/\s+/);
+          let line = ''
+          for(var n = 0; n < words.length; n++) {
+            console.log(words[n]);
+            span.text(line + words[n] + " ");
+            if (span.length() > maxWidth && n > 0) {
+              span.text(line);
+              span.newLine();
+              span = t.tspan(words[n] + '');
+              line = words[n] + " ";
+            } else {
+              line = span.text()
+            }
+          }
+          span.newLine();
+          // TODO adjust on divider
+        }).move(8, 32);
+      }
     }
     </script>
     <script>
@@ -129,7 +153,7 @@
             name: 'Injured',
             usage: 0,
             damage: '',
-            mechanicDetail: 'Disadvantage on STR & DEX saves',
+            mechanicDetail: 'Disadvantage on STR and DEX saves',
             clearDetail: 'After full rest',
             classDetail: '',
             image: '',
