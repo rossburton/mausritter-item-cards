@@ -8,6 +8,7 @@
         .header { fill: black; font: 20px ff-brokenscript-bc-web, serif; }
         text.damage {fill: black; font: bold 16px interstate-condensed, sans-serif; }
         .mechanics {fill: black; font: italic 14px interstate-condensed, sans-serif; }
+        .clear {fill: black; font: 14px interstate-condensed, sans-serif; }
         .detail {fill: black; font: bold 15px interstate-condensed, sans-serif; }
         .star {fill: black;}
     </style>
@@ -98,6 +99,16 @@
           t.leading('1.2em');
           wrapText(t, 150 - 8 - 8, item.mechanicDetail);
         }).move(8, 32);
+      }
+
+      if (item.clearDetail.length) {
+        var text = draw.text(function(t) {
+          t.addClass("clear");
+          t.leading('1.2em');
+          t.tspan('Clear:').font('weight', 'bold').newLine();
+          wrapText(t, 150 - 8 - 8, item.clearDetail);
+        });
+        text.move(8, 150 - 8 - text.bbox().height);
       }
     }
     </script>
