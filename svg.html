@@ -19,6 +19,16 @@
     <img src="sample.png" height="320"/>
     </p>
     <script>
+    SVG.extend(SVG.Box, {
+      grow: function(amount) {
+        this.x -= amount;
+        this.y -= amount;
+        this.width += amount * 2;
+        this.height += amount * 2;
+        return this;
+      }
+    });
+
     function makeStar(draw, spikes, outer, inner) {
       var points = [];
       const degrees = 360/spikes;
@@ -80,11 +90,7 @@
 
       if (item.damage.length) {
         group = draw.group();
-        let bbox = group.plain(item.damage).addClass("damage").bbox();
-        bbox.x -= 5;
-        bbox.y -= 5;
-        bbox.width += 10;
-        bbox.height += 10;
+        let bbox = group.plain(item.damage).addClass("damage").bbox().grow(5);
         group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass("stroke").backward();
         group.move(draw.width() - 8 - bbox.width, 35+8);
       }
