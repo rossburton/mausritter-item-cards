@@ -29,24 +29,26 @@
       }
     });
 
-    function makeStar(draw, spikes, outer, inner) {
-      var points = [];
-      const degrees = 360/spikes;
-      for (i = 0; i < spikes; i++) {
-        a = i * degrees + 90
-        x = outer + inner * Math.cos(a * Math.PI / 180)
-        y = outer + inner * Math.sin(a * Math.PI / 180)
+    SVG.extend(SVG.Svg, {
+      star: function(spikes, outer, inner) {
+        var points = [];
+        const degrees = 360/spikes;
+        for (i = 0; i < spikes; i++) {
+          a = i * degrees + 90
+          x = outer + inner * Math.cos(a * Math.PI / 180)
+          y = outer + inner * Math.sin(a * Math.PI / 180)
 
-        points.push([x, y])
+          points.push([x, y])
 
-        a += degrees / 2
-        x = outer + outer * Math.cos(a * Math.PI / 180)
-        y = outer + outer * Math.sin(a * Math.PI / 180)
+          a += degrees / 2
+          x = outer + outer * Math.cos(a * Math.PI / 180)
+          y = outer + outer * Math.sin(a * Math.PI / 180)
 
-        points.push([x, y])
+          points.push([x, y])
+        }
+        return this.polyline(points);
       }
-      return draw.polyline(points);
-    }
+    });
 
     function wrapText(text, maxWidth, string) {
       const words = string.split(/\s+/);
@@ -76,7 +78,7 @@
 
       if (item.divider) draw.line(1, 35, draw.width()-2, 35).addClass("stroke");
 
-      if (item.star) makeStar(draw, 5, 11, 5).center(17, 35/2).addClass("star");
+      if (item.star) draw.star(5, 11, 5).center(17, 35/2).addClass("star");
 
       if (item.name.length) {
         draw.plain(item.name).move(item.star ? 32 : 8, 11).addClass("header");
