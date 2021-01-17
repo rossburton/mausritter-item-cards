@@ -72,6 +72,7 @@
 
     function renderItem(item) {
       const padding = 8;
+
       var draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
       // TODO draw.css should work?
       //draw.style(".header", {fill: "black", font: "20px ff-brokenscript-bc-web, serif"});
@@ -81,6 +82,14 @@
 
       if (item.divider) draw.line(1, 35, draw.width()-2, 35).addClass("stroke");
 
+      if (item.image.length) {
+        let i = draw.image(item.imageSource, function (event) {
+          const maxWidth = draw.width() - padding * 4;
+          const maxHeight = draw.height() - 35 - padding * 4;
+          i.size(maxWidth, maxHeight).center(draw.width()/2, ((draw.height()-35)/2)+35);
+        });
+      }
+
       if (item.star) draw.star(5, 11, 5).center(17, 35/2).addClass("star");
 
       if (item.name.length) {
@@ -88,7 +97,7 @@
       }
 
       for (let i = 0; i < item.usage; i++) {
-        const x = 8 + (i % 3) * 18;
+        const x = padding + (i % 3) * 18;
         const y = 45 + Math.floor(i / 3) * 18;
         draw.circle(15).move(x, y).addClass("usage");
       }
@@ -101,6 +110,7 @@
       }
 
       if (item.classDetail.length) {
+        // TODO outline
         draw.plain(item.classDetail).move(padding, draw.height() - padding - 17).addClass("detail");
       }
 
@@ -132,6 +142,7 @@
             clearDetail: '',
             classDetail: 'Medium',
             image: 'Sword',
+            imageSource: 'item-light-1.png',
             backgroundColor: '#ffffff',
             foregroundColor: '#000000',
             width: 1,
@@ -148,6 +159,7 @@
             clearDetail: '',
             classDetail: 'Heavy',
             image: 'Heavy armour',
+            imageSource: 'item-heavy-armour.png',
             backgroundColor: '#ffffff',
             foregroundColor: '#000000',
             width: 1,
@@ -164,6 +176,7 @@
             clearDetail: '',
             classDetail: '',
             image: 'Spell 1',
+            imageSource: 'spell-1.png',
             backgroundColor: '#ffffff',
             foregroundColor: '#000000',
             width: 1,
