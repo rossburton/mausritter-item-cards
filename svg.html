@@ -23,7 +23,7 @@
 
     SVG.extend(SVG.Svg, {
       star: function(spikes, outer, inner) {
-        var points = [];
+        let points = [];
         const degrees = 360/spikes;
         for (let i = 0; i < spikes; i++) {
           let a = i * degrees + 90
@@ -62,9 +62,9 @@
     SVG.extend(SVG.Text, {
       wrap: function(string, maxWidth) {
         const words = string.split(/\s+/);
-        var span = this.tspan('');
+        let span = this.tspan('');
         let line = ''
-        for(var n = 0; n < words.length; n++) {
+        for(let n = 0; n < words.length; n++) {
           span.text(line + words[n] + " ");
           if (span.length() > maxWidth && n > 0) {
             span.text(line);
@@ -82,7 +82,7 @@
     function renderItem(item) {
       const padding = 8;
 
-      var draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
+      let draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
 
       draw.scopedStyle('.back', {fill: item.backgroundColor});
       draw.scopedStyle('.stroke', {fill: item.backgroundColor, stroke: item.foregroundColor, 'stroke-width': '2px' });
@@ -94,7 +94,7 @@
       draw.scopedStyle('.detail', {fill: item.foregroundColor, font: 'bold 15px interstate-condensed, sans-serif'});
       draw.scopedStyle('.star', {fill: item.foregroundColor});
 
-      var d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).addClass('back');
+      let d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).addClass('back');
       if (item.border) d.addClass("stroke");
 
       if (item.divider) draw.line(1, 35, draw.width()-2, 35).addClass("stroke");
@@ -136,7 +136,7 @@
         if (item.divider) offset += padding;
         if (item.usage) offset += ( Math.floor(item.usage / 3) * 18) + padding;
 
-        var text = draw.text(function(t) {
+        let text = draw.text(function(t) {
           t.addClass("mechanics");
           t.leading('1.2em');
           t.wrap(item.mechanicDetail, 150 - padding * 2);
@@ -144,7 +144,7 @@
       }
 
       if (item.clearDetail.length) {
-        var text = draw.text(function(t) {
+        let text = draw.text(function(t) {
           t.addClass("clear");
           t.leading('1.2em');
           t.tspan('Clear:').font('weight', 'bold').newLine();
