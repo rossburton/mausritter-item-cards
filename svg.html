@@ -121,7 +121,7 @@
       for (let i = 0; i < item.usage; i++) {
         const x = padding + (i % 3) * 18;
         const y = 45 + Math.floor(i / 3) * 18;
-        draw.circle(15).move(x, y).addClass("stroke");
+        draw.circle(15).move(x, y).addClass("stroke").addOutline();
       }
 
       if (item.damage.length) {
