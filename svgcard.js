@@ -70,6 +70,7 @@ SVG.extend(SVG.Text, {
 
 function renderItem(item) {
   const padding = 8;
+  let contentTop = 32;
 
   let draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
 
@@ -86,7 +87,10 @@ function renderItem(item) {
   let d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).addClass('back');
   if (item.border) d.addClass('stroke');
 
-  if (item.divider) draw.line(1, 35, draw.width()-2, 35).addClass('stroke');
+  if (item.divider) {
+    draw.line(1, 35, draw.width()-2, 35).addClass('stroke');
+    contentTop = 35;
+  }
 
   if (item.imageSource.length) {
     let i = draw.image(item.imageSource, function (event) {
@@ -104,8 +108,9 @@ function renderItem(item) {
 
   for (let i = 0; i < item.usage; i++) {
     const x = padding + (i % 3) * 18;
-    const y = 45 + Math.floor(i / 3) * 18;
+    const y = 35 + 10 + Math.floor(i / 3) * 18;
     draw.circle(15).move(x, y).addClass('stroke').css('fill', 'white').addOutline();
+    contentTop = Math.max(contentTop, y + 15);
   }
 
   if (item.damage.length) {
@@ -114,6 +119,7 @@ function renderItem(item) {
     let bbox = label.bbox().grow(5);
     let box = group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass('stroke').insertBefore(label).addOutline();
     group.move(draw.width() - padding - bbox.width, 35 + padding);
+    contentTop = Math.max(contentTop, group.y() + group.height())
   }
 
   if (item.classDetail.length) {
@@ -121,15 +127,11 @@ function renderItem(item) {
   }
 
   if (item.mechanicDetail.length) {
-    let offset = 32;
-    if (item.divider) offset += padding;
-    if (item.usage) offset += ( Math.floor(item.usage / 3) * 18) + padding;
-
     let text = draw.text(function(t) {
       t.addClass('mechanics');
       t.leading('1.2em');
       t.wrap(item.mechanicDetail, 150 - padding * 2);
-    }).move(8, offset);
+    }).move(8, contentTop + padding/2).addOutline();
   }
 
   if (item.clearDetail.length) {
