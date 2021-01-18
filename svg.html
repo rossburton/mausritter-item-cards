@@ -9,7 +9,7 @@
     <img src="sample.png" height="320"/>
     </p>
     <script>
-      "use strict";
+      'use strict';
 
     SVG.extend(SVG.Box, {
       grow: function(amount) {
@@ -55,7 +55,7 @@
 
     SVG.extend(SVG.Element, {
       addOutline: function() {
-        this.clone().addClass("outline").insertBefore(this);
+        this.clone().addClass('outline').insertBefore(this);
       }
     });
 
@@ -65,12 +65,12 @@
         let span = this.tspan('');
         let line = ''
         for(let n = 0; n < words.length; n++) {
-          span.text(line + words[n] + " ");
+          span.text(line + words[n] + ' ');
           if (span.length() > maxWidth && n > 0) {
             span.text(line);
             span.newLine();
             span = this.tspan(words[n] + '');
-            line = words[n] + " ";
+            line = words[n] + ' ';
           } else {
             line = span.text()
           }
@@ -95,9 +95,9 @@
       draw.scopedStyle('.star', {fill: item.foregroundColor});
 
       let d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).addClass('back');
-      if (item.border) d.addClass("stroke");
+      if (item.border) d.addClass('stroke');
 
-      if (item.divider) draw.line(1, 35, draw.width()-2, 35).addClass("stroke");
+      if (item.divider) draw.line(1, 35, draw.width()-2, 35).addClass('stroke');
 
       if (item.image.length) {
         let i = draw.image(item.imageSource, function (event) {
@@ -107,28 +107,28 @@
         }).css('mix-blend-mode', 'multiply');
       }
 
-      if (item.star) draw.star(5, 11, 5).center(17, 35/2).addClass("star");
+      if (item.star) draw.star(5, 11, 5).center(17, 35/2).addClass('star');
 
       if (item.name.length) {
-        draw.plain(item.name).move(item.star ? 32 : padding, 11).addClass("header");
+        draw.plain(item.name).move(item.star ? 32 : padding, 11).addClass('header');
       }
 
       for (let i = 0; i < item.usage; i++) {
         const x = padding + (i % 3) * 18;
         const y = 45 + Math.floor(i / 3) * 18;
-        draw.circle(15).move(x, y).addClass("stroke").css('fill', 'white').addOutline();
+        draw.circle(15).move(x, y).addClass('stroke').css('fill', 'white').addOutline();
       }
 
       if (item.damage.length) {
         let group = draw.group();
-        let label = group.plain(item.damage).addClass("damage");
+        let label = group.plain(item.damage).addClass('damage');
         let bbox = label.bbox().grow(5);
-        let box = group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass("stroke").insertBefore(label).addOutline();
+        let box = group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass('stroke').insertBefore(label).addOutline();
         group.move(draw.width() - padding - bbox.width, 35 + padding);
       }
 
       if (item.classDetail.length) {
-        let label = draw.plain(item.classDetail).move(padding, draw.height() - padding - 17).addClass("detail").addOutline();
+        let label = draw.plain(item.classDetail).move(padding, draw.height() - padding - 17).addClass('detail').addOutline();
       }
 
       if (item.mechanicDetail.length) {
@@ -137,7 +137,7 @@
         if (item.usage) offset += ( Math.floor(item.usage / 3) * 18) + padding;
 
         let text = draw.text(function(t) {
-          t.addClass("mechanics");
+          t.addClass('mechanics');
           t.leading('1.2em');
           t.wrap(item.mechanicDetail, 150 - padding * 2);
         }).move(8, offset);
@@ -145,7 +145,7 @@
 
       if (item.clearDetail.length) {
         let text = draw.text(function(t) {
-          t.addClass("clear");
+          t.addClass('clear');
           t.leading('1.2em');
           t.tspan('Clear:').font('weight', 'bold').newLine();
           t.wrap(item.clearDetail, 150 - padding * 2);
