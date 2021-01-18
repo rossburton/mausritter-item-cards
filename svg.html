@@ -52,7 +52,9 @@
 
       style: function(selector, rules) {
         /* This can be removed when upgrading svgjs */
-        this.put(new SVG.Style()).rule(selector, rules);
+        let style = this.findOne("style");
+        if (!style) style = this.put(new SVG.Style().attr('scoped', ''));
+        style.rule(selector, rules);
       }
     });
 
