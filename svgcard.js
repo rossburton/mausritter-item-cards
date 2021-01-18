@@ -87,6 +87,17 @@ function renderItem(item) {
   let d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).addClass('back');
   d.css('stroke', item.border ? item.foregroundColor : item.backgroundColor);
 
+  if ('backgroundImage' in item && item.backgroundImage.length) {
+    var bg = draw.pattern(0, 0, function(add) {
+      let image = add.image(item.backgroundImage, function(event) {
+        bg.width(image.width());
+        bg.height(image.height());
+      });
+    });
+    d.css("fill", bg);
+    if (!item.border) d.css('stroke', bg);
+  }
+
   if (item.divider) {
     draw.line(1, 35, draw.width()-2, 35).addClass('stroke');
     contentTop = 35;
