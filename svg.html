@@ -50,11 +50,15 @@
         return this.polyline(points);
       },
 
-      style: function(selector, rules) {
-        /* This can be removed when upgrading svgjs */
-        let style = this.findOne("style");
-        if (!style) style = this.put(new SVG.Style().attr('scoped', ''));
-        style.rule(selector, rules);
+      scopedStyle: function(selector, rules) {
+        let id = this.attr('id');
+        if (!id) id = this.attr('id', SVG.eid('item-card'));
+
+        // These two lines can just use style() when upgrading svgjs
+        let style = this.findOne('style');
+        if (!style) style = this.put(new SVG.Style());
+        // This is faking <style scoped>
+        style.rule('#' + id + ' ' + selector, rules);
       }
     });
 
@@ -89,14 +93,14 @@
 
       var draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
 
-      draw.style('.stroke', {fill: 'white', stroke: 'black', 'stroke-width': '2px' });
-      draw.style('.header', {fill: 'black', font: '20px ff-brokenscript-bc-web, serif' });
-      draw.style('text.damage', {fill: 'black', font: 'bold 16px interstate-condensed, sans-serif' });
-      draw.style('.mechanics', {fill: 'black', font: 'italic 14px interstate-condensed, sans-serif' });
-      draw.style('.clear', {fill: 'black', font: '14px interstate-condensed, sans-serif' });
-      draw.style('.outline', {stroke: 'white', 'stroke-width': '4px', 'stroke-linejoin': 'round' });
-      draw.style('.detail', {fill: 'black', font: 'bold 15px interstate-condensed, sans-serif'});
-      draw.style('.star', {fill: 'black'});
+      draw.scopedStyle('.stroke', {fill: 'white', stroke: 'black', 'stroke-width': '2px' });
+      draw.scopedStyle('.header', {fill: 'black', font: '20px ff-brokenscript-bc-web, serif' });
+      draw.scopedStyle('text.damage', {fill: 'black', font: 'bold 16px interstate-condensed, sans-serif' });
+      draw.scopedStyle('.mechanics', {fill: 'black', font: 'italic 14px interstate-condensed, sans-serif' });
+      draw.scopedStyle('.clear', {fill: 'black', font: '14px interstate-condensed, sans-serif' });
+      draw.scopedStyle('.outline', {stroke: 'white', 'stroke-width': '4px', 'stroke-linejoin': 'round' });
+      draw.scopedStyle('.detail', {fill: 'black', font: 'bold 15px interstate-condensed, sans-serif'});
+      draw.scopedStyle('.star', {fill: 'black'});
 
       // TODO css for background colour
       var d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).css("fill", item.backgroundColor);
