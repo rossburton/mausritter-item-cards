@@ -49,7 +49,7 @@
         let style = this.findOne('style');
         if (!style) style = this.put(new SVG.Style());
         // This is faking <style scoped>
-        style.rule('#' + id + ' ' + selector, rules);
+        style.rule(`#${id} ${selector}`, rules);
       }
     });
 
