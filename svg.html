@@ -9,6 +9,8 @@
     <img src="sample.png" height="320"/>
     </p>
     <script>
+      "use strict";
+
     SVG.extend(SVG.Box, {
       grow: function(amount) {
         this.x -= amount;
@@ -23,10 +25,10 @@
       star: function(spikes, outer, inner) {
         var points = [];
         const degrees = 360/spikes;
-        for (i = 0; i < spikes; i++) {
-          a = i * degrees + 90
-          x = outer + inner * Math.cos(a * Math.PI / 180)
-          y = outer + inner * Math.sin(a * Math.PI / 180)
+        for (let i = 0; i < spikes; i++) {
+          let a = i * degrees + 90
+          let x = outer + inner * Math.cos(a * Math.PI / 180)
+          let y = outer + inner * Math.sin(a * Math.PI / 180)
 
           points.push([x, y])
 
