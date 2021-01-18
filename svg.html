@@ -143,11 +143,15 @@
       }
 
       if (item.mechanicDetail.length) {
+        let offset = 32;
+        if (item.divider) offset += padding;
+        if (item.usage) offset += ( Math.floor(item.usage / 3) * 18) + padding;
+
         var text = draw.text(function(t) {
           t.addClass("mechanics");
           t.leading('1.2em');
           t.wrap(item.mechanicDetail, 150 - padding * 2);
-        }).move(8, item.divider ? 32 + padding : 32);
+        }).move(8, offset);
       }
 
       if (item.clearDetail.length) {
@@ -230,15 +234,15 @@
             star: false,
         };
         const condition2 = {
-            name: 'Injured',
-            usage: 0,
+            name: 'Frozen',
+            usage: 6,
             damage: '',
-            mechanicDetail: 'Disadvantage on STR and DEX saves',
-            clearDetail: 'After full rest',
+            mechanicDetail: 'You are frozen. Count turns in usage, dead when all used.',
+            clearDetail: '',
             classDetail: '',
             image: '',
-            backgroundColor: '#ff4444',
-            foregroundColor: '#ffff00',
+            backgroundColor: '#384761',
+            foregroundColor: '#ffffff',
             width: 1,
             height: 1,
             divider: true,
