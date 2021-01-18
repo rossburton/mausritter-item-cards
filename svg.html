@@ -19,17 +19,6 @@
       }
     });
 
-    SVG.extend(SVG.Defs, {
-      multiply: function(background) {
-        const id = SVG.eid("multiply-filter")
-        let f = this.element("filter").attr({"id": id, x: "0", y: "0", width: "100%", height: "100%"});
-        // Seem to need to flood and can't just use in2=BackgroundImage?
-        f.element('feFlood').attr({"flood-color": background});
-        f.element("feBlend").attr({mode: "multiply", in: "SourceGraphic"});
-        return id;
-      }
-    });
-
     SVG.extend(SVG.Svg, {
       star: function(spikes, outer, inner) {
         var points = [];
@@ -113,9 +102,7 @@
           const maxWidth = draw.width() - padding * 4;
           const maxHeight = draw.height() - 35 - padding * 4;
           i.size(maxWidth, maxHeight).center(draw.width()/2, ((draw.height()-35)/2)+35);
-          const id = draw.defs().multiply(item.backgroundColor);
-          i.attr('filter', 'url(#' + id + ')');
-        });
+        }).css('mix-blend-mode', 'multiply');
       }
 
       if (item.star) draw.star(5, 11, 5).center(17, 35/2).addClass("star");
