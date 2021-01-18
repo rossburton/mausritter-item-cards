@@ -88,7 +88,7 @@ function renderItem(item) {
 
   if (item.divider) draw.line(1, 35, draw.width()-2, 35).addClass('stroke');
 
-  if (item.image.length) {
+  if (item.imageSource.length) {
     let i = draw.image(item.imageSource, function (event) {
       const maxWidth = draw.width() - padding * 4;
       const maxHeight = draw.height() - 35 - padding * 4;
