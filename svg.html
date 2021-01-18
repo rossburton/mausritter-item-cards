@@ -96,7 +96,7 @@
             name: 'Razor Clam',
             usage: 3,
             damage: 'd8',
-            mechanicDetail: '',
+            mechanicDetail: 'Causes Irritated Injury on critical damage',
             clearDetail: '',
             classDetail: 'Heavy',
             image: 'razor',
@@ -109,12 +109,30 @@
             border: true,
             star: false,
         };
+        const irritated = {
+            name: 'Irritated Injury',
+            usage: 0,
+            damage: '',
+            mechanicDetail: 'Disadvantage on STR and DEX saves',
+            clearDetail: 'After two full rests',
+            classDetail: '',
+            image: '',
+            imageSource: '',
+            backgroundColor: '#cc5530',
+            foregroundColor: '#000000',
+            width: 1,
+            height: 1,
+            divider: false,
+            border: true,
+            star: false,
+        };
     renderItem(weapon);
     renderItem(armour);
     renderItem(spell);
     renderItem(condition);
     renderItem(condition2);
     renderItem(razorclam);
+    renderItem(irritated);
     </script>
   </body>
 </html>
