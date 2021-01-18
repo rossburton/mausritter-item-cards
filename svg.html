@@ -2,18 +2,6 @@
   <head>
     <title>SVG hack</title>
     <link rel="stylesheet" href="https://use.typekit.net/srk3hpl.css">
-    <style>
-        .stroke { fill: white; stroke: black; stroke-width: 2px; }
-        .usage { fill: white; stroke: black; stroke-width: 1.5px; }
-        .header { fill: black; font: 20px ff-brokenscript-bc-web, serif; }
-        text.damage {fill: black; font: bold 16px interstate-condensed, sans-serif; }
-        .mechanics {fill: black; font: italic 14px interstate-condensed, sans-serif; }
-        .clear {fill: black; font: 14px interstate-condensed, sans-serif; }
-        /* TODO background not white */
-        .outline { stroke: white; stroke-width: 4px; }
-        .detail {fill: black; font: bold 15px interstate-condensed, sans-serif; }
-        .star {fill: black;}
-    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js" integrity="sha512-p3Tp2zn+wApBreZCgRkmMwnfpN8MUPXzzOihXx7iGYXqE7t6m9drY8HeyMeeFuDWiTFKrGUrq3jpbT0vX6zY/Q==" crossorigin="anonymous"></script>
   </head>
   <body>
@@ -60,6 +48,11 @@
           points.push([x, y])
         }
         return this.polyline(points);
+      },
+
+      style: function(selector, rules) {
+        /* This can be removed when upgrading svgjs */
+        this.put(new SVG.Style()).rule(selector, rules);
       }
     });
 
@@ -94,9 +87,16 @@
 
       var draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
 
-      // TODO fixed in svgjs master. this shoud work: draw.put(new SVG.Style()).rule(selector, obj)
-      //draw.style(".header", {fill: "black", font: "20px ff-brokenscript-bc-web, serif"});
+      draw.style('.stroke', {fill: 'white', stroke: 'black', 'stroke-width': '2px' });
+      draw.style('.header', {fill: 'black', font: '20px ff-brokenscript-bc-web, serif' });
+      draw.style('text.damage', {fill: 'black', font: 'bold 16px interstate-condensed, sans-serif' });
+      draw.style('.mechanics', {fill: 'black', font: 'italic 14px interstate-condensed, sans-serif' });
+      draw.style('.clear', {fill: 'black', font: '14px interstate-condensed, sans-serif' });
+      draw.style('.outline', {stroke: 'white', 'stroke-width:': '4px' });
+      draw.style('.detail', {fill: 'black', font: 'bold 15px interstate-condensed, sans-serif'});
+      draw.style('.star', {fill: 'black'});
 
+      // TODO css for background colour
       var d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).css("fill", item.backgroundColor);
       if (item.border) d.addClass("stroke");
 
