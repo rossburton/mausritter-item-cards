@@ -31,14 +31,11 @@ SVG.extend(SVG.Svg, {
   },
 
   scopedStyle: function(selector, rules) {
-    let id = this.attr('id');
-    if (!id) id = this.attr('id', SVG.eid('item-card'));
-
     // These two lines can just use style() when upgrading svgjs
     let style = this.findOne('style');
     if (!style) style = this.put(new SVG.Style());
     // This is faking <style scoped>
-    style.rule(`#${id} ${selector}`, rules);
+    style.rule(`#${this.id()} ${selector}`, rules);
   }
 });
 
