@@ -71,7 +71,6 @@ function renderItem(item) {
 
   let draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
 
-  draw.put(new SVG.Style()).words('@import url(https://use.typekit.net/srk3hpl.css);')
   draw.scopedStyle('.back', {fill: item.backgroundColor, stroke: item.foregroundColor, 'stroke-width': '2px'});
   draw.scopedStyle('.stroke', {fill: item.backgroundColor, stroke: item.foregroundColor, 'stroke-width': '2px' });
   draw.scopedStyle('.header', {fill: item.foregroundColor, font: '20px ff-brokenscript-bc-web, serif' });
