@@ -157,5 +157,5 @@ function renderItem(item) {
     text.move(padding, 150 - padding - text.bbox().height);
   }
 
-  return draw.node;
+  return draw;
 }

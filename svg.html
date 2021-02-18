@@ -162,9 +162,46 @@
     renderItem(spell);
     renderItem(condition);
     renderItem(condition2);
-    renderItem(limpet);
     renderItem(razorclam);
-    renderItem(irritated);
-    </script>
+
+    function readFile(blob){
+      return new Promise((resolve, reject) => {
+        var fr = new FileReader();  
+        fr.onload = () => {
+          resolve(fr.result )
+        };
+        fr.readAsDataURL(blob);
+      });
+    }
+
+    let item = renderItem(limpet);
+    let link = document.createElement('a');
+    link.innerText = "[prepare SVG]";
+    link.download = 'item.svg';
+    link.onclick = function() {
+      let promises = [];
+      /* Iterate through the images and replace URI references with embedded data: URLs */
+      let svg = item.clone();
+      for (let image of svg.find('image')) {
+        p = fetch(image.attr('href')).then(function(response) {
+          return response.blob();
+        }).then(function(blob) {
+          return readFile(blob);
+        }).then(function(dataurl) {
+          image.attr('href', dataurl, 'http://www.w3.org/1999/xlink');
+        });
+        promises.push(p);
+      }
+      /* When all those promises have finished, set the link to a data: of the SVG */
+      Promise.all(promises).then(function() {
+        let blob = new Blob([svg.svg()], {type:'image/svg+xml;charset=utf-8'});
+        readFile(blob).then(function(dataurl) {
+          link.href = dataurl;
+          link.innerText = '[Download SVG]';
+        });
+      });
+    };
+    document.body.appendChild(link);
+  </script>
   </body>
 </html>
