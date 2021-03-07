@@ -101,11 +101,28 @@
             clearDetail: '',
             classDetail: 'Heavy',
             image: 'razor',
-            imageSource: 'razor_shell_8271_lg.gif',
+            imageSource: 'razor_shell_8271_lg.png',
             backgroundColor: 'white',
             foregroundColor: 'black',
             width: 1,
             height: 2,
+            divider: true,
+            border: true,
+            star: false,
+        };
+        const limpet = {
+            name: 'Limpet Shield',
+            usage: 3,
+            damage: '1/2 def',
+            mechanicDetail: '',
+            clearDetail: '',
+            classDetail: '',
+            image: 'limpet',
+            imageSource: 'limpet.png',
+            backgroundColor: 'white',
+            foregroundColor: 'black',
+            width: 1,
+            height: 1,
             divider: true,
             border: true,
             star: false,
@@ -127,11 +144,18 @@
             border: true,
             star: false,
         };
+      /*
+       IDEAS
+       - nudge image x/y
+       - mechanics at bottom instead
+       - armour toggle for octagon instead of rectangle
+       */
     renderItem(weapon);
     renderItem(armour);
     renderItem(spell);
     renderItem(condition);
     renderItem(condition2);
+    renderItem(limpet);
     renderItem(razorclam);
     renderItem(irritated);
     </script>
