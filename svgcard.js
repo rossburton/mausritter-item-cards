@@ -10,7 +10,7 @@ SVG.extend(SVG.Box, {
   }
 });
 
-SVG.extend(SVG.Svg, {
+SVG.extend(SVG.Container, {
   star: function(spikes, outer, inner) {
     let points = [];
     const degrees = 360/spikes;
@@ -28,6 +28,10 @@ SVG.extend(SVG.Svg, {
       points.push([x, y])
     }
     return this.polyline(points);
+  },
+
+  octagon: function(width, height, bevel) {
+    return this.polygon([[bevel,0], [width-bevel,0], [width, bevel], [width, height-bevel], [width - bevel, height], [bevel, height], [0, height-bevel], [0, bevel]]);
   },
 
   scopedStyle: function(selector, rules) {
@@ -125,13 +129,7 @@ function renderItem(item) {
     let group = draw.group();
     let label = group.plain(item.damage).addClass('damage');
     let bbox = label.bbox().grow(5);
-    let shape;
-    if (item.armour) {
-      const bevel = 5;
-      shape = group.polygon([[bevel,0], [bbox.width-bevel,0], [bbox.width, bevel], [bbox.width, bbox.height-bevel], [bbox.width - bevel, bbox.height], [bevel, bbox.height], [0, bbox.height-bevel], [0, bevel]]);
-    } else {
-      shape = group.rect(bbox.width, bbox.height);
-    }
+    let shape = item.armour ? group.octagon(bbox.width, bbox.height, 5) : group.rect(bbox.width, bbox.height);
     let box = shape.move(bbox.x, bbox.y).addClass('stroke').insertBefore(label).addOutline();
     group.move(draw.width() - padding - bbox.width, 35 + padding);
     contentTop = Math.max(contentTop, group.y() + group.height())
