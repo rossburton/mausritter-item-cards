@@ -72,12 +72,12 @@ function renderItem(item) {
   let draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
 
   draw.scopedStyle('.back', {fill: item.backgroundColor, stroke: item.foregroundColor, 'stroke-width': '2px'});
-  draw.scopedStyle('.stroke', {fill: item.backgroundColor, stroke: item.foregroundColor, 'stroke-width': '2px' });
+  draw.scopedStyle('.stroke', {fill: item.backgroundColor, stroke: item.foregroundColor, 'stroke-width': '1px' });
   draw.scopedStyle('.header', {fill: item.foregroundColor, font: '20px ff-brokenscript-bc-web, serif' });
   draw.scopedStyle('text.damage', {fill: item.foregroundColor, font: 'bold 16px interstate-condensed, sans-serif' });
   draw.scopedStyle('.mechanics', {fill: item.foregroundColor, font: 'italic 14px interstate-condensed, sans-serif' });
   draw.scopedStyle('.clear', {fill: item.foregroundColor, font: '14px interstate-condensed, sans-serif' });
-  draw.scopedStyle('.outline', {stroke: item.backgroundColor, 'stroke-width': '4px', 'stroke-linejoin': 'round' });
+  draw.scopedStyle('.outline', {stroke: item.backgroundColor, 'stroke-width': '3px', 'stroke-linejoin': 'round' });
   draw.scopedStyle('.detail', {fill: item.foregroundColor, font: 'bold 15px interstate-condensed, sans-serif'});
   draw.scopedStyle('.star', {fill: item.foregroundColor});
 
