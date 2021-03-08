@@ -125,7 +125,14 @@ function renderItem(item) {
     let group = draw.group();
     let label = group.plain(item.damage).addClass('damage');
     let bbox = label.bbox().grow(5);
-    let box = group.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).addClass('stroke').insertBefore(label).addOutline();
+    let shape;
+    if (item.armour) {
+      const bevel = 5;
+      shape = group.polygon([[bevel,0], [bbox.width-bevel,0], [bbox.width, bevel], [bbox.width, bbox.height-bevel], [bbox.width - bevel, bbox.height], [bevel, bbox.height], [0, bbox.height-bevel], [0, bevel]]);
+    } else {
+      shape = group.rect(bbox.width, bbox.height);
+    }
+    let box = shape.move(bbox.x, bbox.y).addClass('stroke').insertBefore(label).addOutline();
     group.move(draw.width() - padding - bbox.width, 35 + padding);
     contentTop = Math.max(contentTop, group.y() + group.height())
   }
