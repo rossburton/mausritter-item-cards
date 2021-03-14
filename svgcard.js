@@ -75,7 +75,7 @@ function renderItem(item) {
 
   let draw = SVG().addTo('body').size(150 * item.width, 150 * item.height);
 
-  draw.scopedStyle('.back', {fill: item.backgroundColor, stroke: item.foregroundColor, 'stroke-width': '2px'});
+  draw.scopedStyle('.back', {fill: item.backgroundColor, stroke: item.border ? item.foregroundColor : item.backgroundColor, 'stroke-width': '2px'});
   draw.scopedStyle('.stroke', {fill: item.backgroundColor, stroke: item.foregroundColor, 'stroke-width': '1px' });
   draw.scopedStyle('.header', {fill: item.foregroundColor, font: '20px ff-brokenscript-bc-web, serif' });
   draw.scopedStyle('text.damage', {fill: item.foregroundColor, font: 'bold 16px interstate-condensed, sans-serif' });
@@ -86,7 +86,6 @@ function renderItem(item) {
   draw.scopedStyle('.star', {fill: item.foregroundColor});
 
   let d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).addClass('back');
-  d.css('stroke', item.border ? item.foregroundColor : item.backgroundColor);
 
   if ('backgroundImage' in item && item.backgroundImage.length) {
     var bg = draw.pattern(0, 0, function(add) {
