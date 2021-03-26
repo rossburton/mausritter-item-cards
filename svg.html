@@ -7,7 +7,63 @@
   </head>
   <body>
     <script>
-      const weapon = {
+      const dagger = {
+            name: 'Dagger',
+            usage: 3,
+            damage: 'd6',
+            armour: false,
+            mechanicDetail: '',
+            clearDetail: '',
+            classDetail: 'Light',
+            image: 'Sword',
+            imageSource: new URL('item-light-1.png', document.baseURI).href,
+            backgroundColor: '#ffffff',
+            foregroundColor: '#000000',
+            width: 1,
+            height: 1,
+            divider: true,
+            border: true,
+            star: false,
+        };
+        const torches = {
+            name: 'Torches',
+            usage: 3,
+            damage: '',
+            armour: false,
+            mechanicDetail: '',
+            clearDetail: '',
+            classDetail: '',
+            image: 'Sword',
+            imageSource: new URL('item-torch.png', document.baseURI).href,
+            backgroundColor: '#ffffff',
+            foregroundColor: '#000000',
+            width: 1,
+            height: 1,
+            divider: true,
+            border: true,
+            star: false,
+        };
+        renderItem(torches);
+        const rations = {
+            name: 'Rations',
+            usage: 3,
+            damage: '',
+            armour: false,
+            mechanicDetail: '',
+            clearDetail: '',
+            classDetail: '',
+            image: 'rations',
+            imageSource: new URL('item-rations.png', document.baseURI).href,
+            backgroundColor: '#ffffff',
+            foregroundColor: '#000000',
+            width: 1,
+            height: 1,
+            divider: true,
+            border: true,
+            star: false,
+        };
+        renderItem(rations);
+        const sword = {
             name: 'Sword',
             usage: 3,
             damage: 'd6/d8',
@@ -16,8 +72,9 @@
             clearDetail: '',
             classDetail: 'Medium',
             image: 'Sword',
-            imageSource: new URL('item-light-1.png', document.baseURI).href,
-            backgroundColor: '#ffffff',
+            imageSource: new URL('item-medium-2.png', document.baseURI).href,
+            backgroundImage: 'paper.jpg',
+            backgroundColor: '#bdb3a8',
             foregroundColor: '#000000',
             width: 1,
             height: 1,
@@ -35,8 +92,7 @@
             classDetail: 'Heavy',
             image: 'Heavy armour',
             imageSource: new URL('item-heavy-armour.png', document.baseURI).href,
-            backgroundImage: 'paper.jpg',
-            backgroundColor: '#bdb3a8',
+            backgroundColor: '#ffffff',
             foregroundColor: '#000000',
             width: 1,
             height: 2,
@@ -44,6 +100,26 @@
             border: true,
             star: false,
         };
+        const mussel = {
+            name: 'Mussel Armour',
+            usage: 3,
+            damage: '2 def',
+            armour: true,
+            mechanicDetail: 'Disadvantage on DEX saves, cannot run',
+            clearDetail: '',
+            classDetail: 'Heavy',
+            image: 'Heavy armour',
+            imageSource: new URL('muscle.png', document.baseURI).href,
+            backgroundColor: '#ffffff',
+            foregroundColor: '#000000',
+            width: 1,
+            height: 2,
+            divider: true,
+            border: true,
+            star: false,
+        };
+      addDownload(renderItem(mussel));
+
       const spell = {
             name: 'Restore',
             usage: 3,
@@ -116,6 +192,42 @@
             border: true,
             star: false,
         };
+        const net = {
+            name: 'Tough Net',
+            usage: 0,
+            damage: '',
+            armour: false,
+            mechanicDetail: '',
+            clearDetail: '',
+            classDetail: '',
+            image: 'net',
+            imageSource: new URL('net.jpg', document.baseURI).href,
+            backgroundColor: 'white',
+            foregroundColor: 'black',
+            width: 1,
+            height: 1,
+            divider: true,
+            border: true,
+            star: false,
+        };
+        const rope = {
+            name: 'Tough Rope',
+            usage: 0,
+            damage: '',
+            armour: false,
+            mechanicDetail: '',
+            clearDetail: '',
+            classDetail: '',
+            image: 'rope',
+            imageSource: new URL('rope2.svg', document.baseURI).href,
+            backgroundColor: 'white',
+            foregroundColor: 'black',
+            width: 1,
+            height: 1,
+            divider: true,
+            border: true,
+            star: false,
+        };
         const limpet = {
             name: 'Limpet Shield',
             usage: 3,
@@ -157,7 +269,8 @@
        - nudge image x/y
        - mechanics at bottom instead
        */
-    renderItem(weapon);
+    renderItem(dagger);
+    renderItem(sword);
     renderItem(armour);
     renderItem(spell);
     renderItem(condition);
@@ -165,6 +278,9 @@
     let i = renderItem(razorclam);
     addDownload(i);
     renderItem(irritated);
+    renderItem(limpet);
+    addDownload(renderItem(rope));
+    addDownload(renderItem(net));
 
     function addDownload(item) {
       function readFile(blob){
