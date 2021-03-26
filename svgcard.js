@@ -67,11 +67,11 @@ SVG.extend(SVG.Text, {
   }
 });
 
-function renderItem(item) {
+function renderItem(item, parent) {
   const padding = 8;
   let contentTop = 32;
 
-  let draw = SVG().addTo('body').size(150 * item.width, 150 * item.height).viewbox(0, 0, 150 * item.width, 150 * item.height);
+  let draw = SVG().addTo(parent ?? 'body').size(150 * item.width, 150 * item.height).viewbox(0, 0, 150 * item.width, 150 * item.height);
   draw.remember('item', item);
 
   let d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).attr({
