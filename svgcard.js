@@ -97,8 +97,8 @@ function renderItem(item) {
 
   if (item.imageSource.length) {
     let i = draw.image(item.imageSource, function (event) {
-      const maxWidth = draw.width() - padding * 4;
-      const maxHeight = draw.height() - 35 - padding * 4;
+      const maxWidth = draw.width() - padding * 2;
+      const maxHeight = draw.height() - 35 - padding * 2;
       i.size(maxWidth, maxHeight).center(draw.width()/2, ((draw.height()-35)/2)+35);
     }).css('mix-blend-mode', 'multiply');
     /* TODO still CSS */
