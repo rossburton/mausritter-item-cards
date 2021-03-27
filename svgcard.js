@@ -99,7 +99,10 @@ function renderItem(item, parent) {
     let i = draw.image(item.imageSource, function (event) {
       const maxWidth = draw.width() - padding * 2;
       const maxHeight = draw.height() - 35 - padding * 2;
-      i.size(maxWidth, maxHeight).center(draw.width()/2, ((draw.height()-35)/2)+35);
+      /* Affinity doesn't respect SVG aspect ratio correctly so we can't
+         just set to the size of the bounding box */
+      const ratio = Math.min(maxWidth / i.width(), maxHeight / i.height());
+      i.size(i.width() * ratio, i.height() * ratio).center(draw.width()/2, ((draw.height()-35)/2)+35);
     }).css('mix-blend-mode', 'multiply');
     /* TODO still CSS */
   }
