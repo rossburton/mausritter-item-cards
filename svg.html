@@ -5,9 +5,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js" integrity="sha512-p3Tp2zn+wApBreZCgRkmMwnfpN8MUPXzzOihXx7iGYXqE7t6m9drY8HeyMeeFuDWiTFKrGUrq3jpbT0vX6zY/Q==" crossorigin="anonymous"></script>
     <script src="svgcard.js"></script>
   </head>
-  <body>
+  <body onload="draw();">
+    <div>
+      <select id="itemselect" oninput="draw();"></select>
+    </div>
+
+    <div id="display"></div>
+    <a href="#" id="svglink" onclick="downloadsvg();">[Download SVG]</a>
+
     <script>
-      const dagger = {
+      const itemTemplates = {
+        limpetshield: {
+            name: 'Limpet Shield',
+            usage: 3,
+            damage: '1/2 def',
+            armour: true,
+            mechanicDetail: '',
+            clearDetail: '',
+            classDetail: '',
+            imageSource: new URL('limpet.png', document.baseURI).href,
+            backgroundColor: 'white',
+            foregroundColor: 'black',
+            width: 1,
+            height: 1,
+            divider: true,
+            border: true,
+            star: false,
+        },
+        dagger: {
             name: 'Dagger',
             usage: 3,
             damage: 'd6',
@@ -15,7 +40,6 @@
             mechanicDetail: '',
             clearDetail: '',
             classDetail: 'Light',
-            image: 'Sword',
             imageSource: new URL('item-light-1.png', document.baseURI).href,
             backgroundColor: '#ffffff',
             foregroundColor: '#000000',
@@ -24,8 +48,8 @@
             divider: true,
             border: true,
             star: false,
-        };
-        const torches = {
+        },
+        torches: {
             name: 'Torches',
             usage: 3,
             damage: '',
@@ -33,7 +57,6 @@
             mechanicDetail: '',
             clearDetail: '',
             classDetail: '',
-            image: 'Sword',
             imageSource: new URL('item-torch.png', document.baseURI).href,
             backgroundColor: '#ffffff',
             foregroundColor: '#000000',
@@ -42,8 +65,8 @@
             divider: true,
             border: true,
             star: false,
-        };
-        const rations = {
+        },
+        rations: {
             name: 'Rations',
             usage: 3,
             damage: '',
@@ -51,7 +74,6 @@
             mechanicDetail: '',
             clearDetail: '',
             classDetail: '',
-            image: 'rations',
             imageSource: new URL('item-rations.png', document.baseURI).href,
             backgroundColor: '#ffffff',
             foregroundColor: '#000000',
@@ -60,8 +82,8 @@
             divider: true,
             border: true,
             star: false,
-        };
-        const sword = {
+        },
+        sword: {
             name: 'Sword',
             usage: 3,
             damage: 'd6/d8',
@@ -79,8 +101,8 @@
             divider: true,
             border: true,
             star: false,
-        };
-      const armour = {
+        },
+        armour: {
             name: 'Heavy armour',
             usage: 3,
             damage: '1 def',
@@ -97,8 +119,8 @@
             divider: true,
             border: true,
             star: false,
-        };
-        const mussel = {
+        },
+        mussel: {
             name: 'Mussel Armour',
             usage: 3,
             damage: '2 def',
@@ -115,9 +137,8 @@
             divider: true,
             border: true,
             star: false,
-        };
-
-      const spell = {
+        },
+        spell: {
             name: 'Restore',
             usage: 3,
             damage: '',
@@ -134,8 +155,8 @@
             divider: true,
             border: true,
             star: true,
-        };
-      const condition = {
+        },
+        condition: {
             name: 'Injured',
             usage: 0,
             damage: '',
@@ -152,8 +173,8 @@
             divider: false,
             border: true,
             star: false,
-        };
-        const condition2 = {
+        },
+        condition2: {
             name: 'Frozen',
             usage: 6,
             damage: '',
@@ -170,8 +191,8 @@
             divider: true,
             border: false,
             star: false,
-        };
-        const razorclam = {
+        },
+        razorclam: {
             name: 'Razor Clam',
             usage: 3,
             damage: 'd8',
@@ -188,8 +209,8 @@
             divider: true,
             border: true,
             star: false,
-        };
-        const net = {
+        },
+        net: {
             name: 'Tough Net',
             usage: 0,
             damage: '',
@@ -206,8 +227,8 @@
             divider: true,
             border: true,
             star: false,
-        };
-        const rope = {
+        },
+        rope: {
             name: 'Tough Rope',
             usage: 0,
             damage: '',
@@ -224,26 +245,8 @@
             divider: true,
             border: true,
             star: false,
-        };
-        const limpet = {
-            name: 'Limpet Shield',
-            usage: 3,
-            damage: '1/2 def',
-            armour: true,
-            mechanicDetail: '',
-            clearDetail: '',
-            classDetail: '',
-            image: 'limpet',
-            imageSource: new URL('limpet.png', document.baseURI).href,
-            backgroundColor: 'white',
-            foregroundColor: 'black',
-            width: 1,
-            height: 1,
-            divider: true,
-            border: true,
-            star: false,
-        };
-        const irritated = {
+        },
+        irritated: {
             name: 'Irritated Injury',
             usage: 0,
             damage: '',
@@ -260,25 +263,13 @@
             divider: false,
             border: true,
             star: false,
-        };
+        }
+      };
       /*
        IDEAS
        - nudge image x/y
        - mechanics at bottom instead
        */
-    renderItem(dagger);
-    renderItem(sword);
-    renderItem(armour);
-    renderItem(spell);
-    renderItem(condition);
-    renderItem(condition2);
-    renderItem(razorclam);
-    renderItem(irritated);
-    renderItem(limpet);
-    renderItem(rope);
-    renderItem(net);
-    renderItem(torches);
-    renderItem(rations);
 
     function readFile(blob){
       return new Promise((resolve, reject) => {
@@ -315,17 +306,36 @@
     function downloadsvg() {
       generatesvg('#display svg').then(function(dataurl) {
         let a = document.createElement('a');
+        // TODO: somehow use item.name + ".svg"
         a.download = 'item.svg'
         a.href = dataurl;
         a.click();
       });
     }
-  </script>
 
-  <div id="display"></div>
-  <a href="#" id="svglink" onclick="downloadsvg();">[Download SVG]</a>
-  <script>
-    let svg = renderItem(limpet, '#display');
+    const itemselect = document.getElementById('itemselect');
+
+    function populateSelect() {
+      for (const key in itemTemplates) {
+        let opt = document.createElement("option");
+        opt.value = key;
+        opt.text = itemTemplates[key].name;
+        itemselect.add(opt, null);
+      }
+    }
+    populateSelect();
+
+    function removeAllChildren(element) {
+      while (element.firstChild) {
+        element.removeChild(element.firstChild)
+      }
+    }
+
+    function draw() {
+      removeAllChildren(document.getElementById('display'));
+      const item = itemTemplates[itemselect.value];
+      let svg = renderItem(item, '#display');
+  }
   </script>
   </body>
 </html>
