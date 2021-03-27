@@ -118,7 +118,6 @@
             border: true,
             star: false,
         };
-      addDownload(renderItem(mussel));
 
       const spell = {
             name: 'Restore',
@@ -275,12 +274,11 @@
     renderItem(spell);
     renderItem(condition);
     renderItem(condition2);
-    let i = renderItem(razorclam);
-    addDownload(i);
+      let i = renderItem(razorclam);
     renderItem(irritated);
-    renderItem(limpet);
-    addDownload(renderItem(rope));
-    addDownload(renderItem(net));
+    //renderItem(limpet);
+    //renderItem(rope);
+    //renderItem(net);
 
     function readFile(blob){
       return new Promise((resolve, reject) => {
@@ -306,23 +304,28 @@
         });
         promises.push(p);
       }
-      /* When all those promises have finished, set the link to a data: of the SVG */
-      Promise.all(promises).then(function() {
+      /* When all those promises have finished, turn the SVG to a data URL and chain */
+      return Promise.all(promises).then(function() {
         let blob = new Blob([svg.svg()], {type:'image/svg+xml;charset=utf-8'});
-        readFile(blob).then(function(dataurl) {
-          link.href = dataurl;
-          link.innerText = '[Download SVG]';
-        });
+        return readFile(blob);
       });
     };
 
-    function addDownload(item) {
+    function coolrenderItem(item) {
       let link = document.createElement('a');
-      link.innerText = "[prepare SVG]";
-      link.download = 'item.svg';
-      link.onclick = function() { generatesvg(item, link)};
+      link.onclick = function() {
+        generatesvg(node, link).then(function(dataurl) {
+          let a = document.createElement('a');
+          a.download = 'item.svg'
+          a.href = dataurl;
+          a.click();
+      })};
+      let node = renderItem(item, link);
       document.body.appendChild(link);
-    }
+    };
+
+    coolrenderItem(limpet, 'body');
+
   </script>
   </body>
 </html>
