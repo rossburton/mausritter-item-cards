@@ -102,7 +102,9 @@ function renderItem(item, parent) {
       /* Affinity doesn't respect SVG aspect ratio correctly so we can't
          just set to the size of the bounding box */
       const ratio = Math.min(maxWidth / i.width(), maxHeight / i.height());
-      i.size(i.width() * ratio, i.height() * ratio).center(draw.width()/2, ((draw.height()-35)/2)+35);
+      i.size(i.width() * ratio, i.height() * ratio)
+       .center(draw.width()/2, ((draw.height()-35)/2)+35)
+       .dmove(item.nudgeX ?? 0, item.nudgeY ?? 0);
     }).css('mix-blend-mode', 'multiply');
     /* TODO still CSS */
   }
