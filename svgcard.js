@@ -74,10 +74,7 @@ function renderItem(item, parent) {
   let draw = SVG().addTo(parent ?? 'body').size(150 * item.width, 150 * item.height).viewbox(0, 0, 150 * item.width, 150 * item.height);
   draw.remember('item', item);
 
-  let d = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).attr({
-    'fill': item.backgroundColor,
-    'stroke': item.border ? item.foregroundColor : item.backgroundColor,
-    'stroke-width': '2px'});
+  let background = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).fill(item.backgroundColor);
 
   if ('backgroundImage' in item && item.backgroundImage.length) {
     var bg = draw.pattern(0, 0, function(add) {
@@ -86,8 +83,7 @@ function renderItem(item, parent) {
         bg.height(image.height());
       });
     });
-    d.attr("fill", bg);
-    if (!item.border) d.attr('stroke', bg);
+    background.attr("fill", bg);
   }
 
   if (item.divider) {
@@ -161,6 +157,12 @@ function renderItem(item, parent) {
     });
     text.move(padding, 150 - padding - text.bbox().height);
   }
+
+  draw.rect(draw.width()-2, draw.height()-2).move(1, 1).attr({
+    'fill': 'none',
+    'stroke': item.border ? item.foregroundColor : item.backgroundColor,
+    'stroke-width': '2px'
+  });
 
   return draw;
 }
