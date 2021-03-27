@@ -43,7 +43,6 @@
             border: true,
             star: false,
         };
-        renderItem(torches);
         const rations = {
             name: 'Rations',
             usage: 3,
@@ -62,7 +61,6 @@
             border: true,
             star: false,
         };
-        renderItem(rations);
         const sword = {
             name: 'Sword',
             usage: 3,
@@ -274,11 +272,13 @@
     renderItem(spell);
     renderItem(condition);
     renderItem(condition2);
-      let i = renderItem(razorclam);
+    renderItem(razorclam);
     renderItem(irritated);
-    //renderItem(limpet);
-    //renderItem(rope);
-    //renderItem(net);
+    renderItem(limpet);
+    renderItem(rope);
+    renderItem(net);
+    renderItem(torches);
+    renderItem(rations);
 
     function readFile(blob){
       return new Promise((resolve, reject) => {
@@ -290,10 +290,10 @@
       });
     }
 
-    function generatesvg(item, link) {
+    function generatesvg(selector) {
       let promises = [];
       /* Iterate through the images and replace URI references with embedded data: URLs */
-      let svg = item.clone();
+      let svg = SVG(selector).clone();
       for (let image of svg.find('image')) {
         p = fetch(image.attr('href')).then(function(response) {
           return response.blob();
@@ -309,23 +309,23 @@
         let blob = new Blob([svg.svg()], {type:'image/svg+xml;charset=utf-8'});
         return readFile(blob);
       });
-    };
+    }
 
-    function coolrenderItem(item) {
-      let link = document.createElement('a');
-      link.onclick = function() {
-        generatesvg(node, link).then(function(dataurl) {
-          let a = document.createElement('a');
-          a.download = 'item.svg'
-          a.href = dataurl;
-          a.click();
-      })};
-      let node = renderItem(item, link);
-      document.body.appendChild(link);
-    };
+    /* Download the SVG */
+    function downloadsvg() {
+      generatesvg('#display svg').then(function(dataurl) {
+        let a = document.createElement('a');
+        a.download = 'item.svg'
+        a.href = dataurl;
+        a.click();
+      });
+    }
+  </script>
 
-    coolrenderItem(limpet, 'body');
-
+  <div id="display"></div>
+  <a href="#" id="svglink" onclick="downloadsvg();">[Download SVG]</a>
+  <script>
+    let svg = renderItem(limpet, '#display');
   </script>
   </body>
 </html>
