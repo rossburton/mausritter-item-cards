@@ -7,12 +7,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js" integrity="sha512-p3Tp2zn+wApBreZCgRkmMwnfpN8MUPXzzOihXx7iGYXqE7t6m9drY8HeyMeeFuDWiTFKrGUrq3jpbT0vX6zY/Q==" crossorigin="anonymous"></script>
     <script src="svgcard.js"></script>
   </head>
-  <body onload="draw();">
+
+  <body>
     <section class="section">
       <div class="field">
         <label class="label">Template</label>
         <div class="select">
-          <select id="itemselect" oninput="draw();"></select>
+          <select id="itemselect" oninput="updateTemplate();"></select>
         </div>
       </div>
 
@@ -301,6 +302,8 @@
        - mechanics at bottom instead
        */
 
+    let item = undefined;
+
     function readFile(blob){
       return new Promise((resolve, reject) => {
         var fr = new FileReader();
@@ -352,6 +355,7 @@
         opt.text = itemTemplates[key].name;
         itemselect.add(opt, null);
       }
+      updateTemplate();
     }
     populateSelect();
 
@@ -361,11 +365,15 @@
       }
     }
 
+    function updateTemplate() {
+      item = Object.assign({}, itemTemplates[itemselect.value]);
+      draw();
+    }
+
     function draw() {
       removeAllChildren(document.getElementById('display'));
-      const item = itemTemplates[itemselect.value];
       let svg = renderItem(item, '#display');
-  }
+    }
   </script>
   </body>
 </html>
