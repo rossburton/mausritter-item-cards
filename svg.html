@@ -27,6 +27,34 @@
         </div>
 
         <div class="field">
+          <label class="label">Damage</label>
+          <div class="control">
+            <input class="input" name="damage" oninput="updateItem(); draw();"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Usage</label>
+          <div class="control">
+            <input class="input" name="usage" type="number" min="0" max="9" oninput="updateItem(); draw();"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Class Detail</label>
+          <div class="control">
+            <input class="input" name="classDetail" oninput="updateItem(); draw();"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Mechanics Detail</label>
+          <div class="control">
+            <input class="input" name="mechanicDetail" oninput="updateItem(); draw();"/>
+          </div>
+        </div>
+
+        <div class="field">
           <label class="checkbox">Has Star</label>
           <div class="control">
             <input type="checkbox" name="star" oninput="updateItem(); draw();"/>
@@ -141,6 +169,7 @@
         if (element.name) {
           switch (element.type) {
             case 'text':
+            case 'number':
               element.value = item[element.name];
               break;
             case 'checkbox':
@@ -161,6 +190,7 @@
         if (element.name) {
           switch (element.type) {
             case 'text':
+            case 'number':
               item[element.name] = element.value;
               break;
             case 'checkbox':
