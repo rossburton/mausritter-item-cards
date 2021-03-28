@@ -114,7 +114,23 @@
 
     function updateFromTemplate() {
       item = Object.assign({}, itemTemplates[itemselect.value]);
-      input_name.value = item.name;
+
+      const form = document.getElementById("form-item");
+      for (const element of form.elements) {
+        if (element.name) {
+          switch (element.type) {
+            case 'text':
+              element.value = item[element.name];
+              break;
+            case 'checkbox':
+              element.checked = item[element.name];
+              break;
+            default:
+              console.warn(`Unhandled element type ${element.type}`);
+          }
+        }
+      }
+
       draw();
     }
 
