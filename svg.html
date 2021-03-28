@@ -2,16 +2,27 @@
   <head>
     <title>SVG hack</title>
     <link rel="stylesheet" href="https://use.typekit.net/srk3hpl.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js" integrity="sha512-p3Tp2zn+wApBreZCgRkmMwnfpN8MUPXzzOihXx7iGYXqE7t6m9drY8HeyMeeFuDWiTFKrGUrq3jpbT0vX6zY/Q==" crossorigin="anonymous"></script>
     <script src="svgcard.js"></script>
   </head>
   <body onload="draw();">
-    <div>
-      <select id="itemselect" oninput="draw();"></select>
-    </div>
+    <section class="section">
+      <div class="field">
+        <label class="label">Template</label>
+        <div class="select">
+          <select id="itemselect" oninput="draw();"></select>
+        </div>
+      </div>
 
-    <div id="display"></div>
-    <a href="#" id="svglink" onclick="downloadsvg();">[Download SVG]</a>
+      <div class="card">
+        <div id="display" class="card-content"></div>
+        <footer class="card-footer">
+          <a href="#" class="card-footer-item" id="svglink" onclick="downloadsvg();">Download SVG</a>
+        </footer>
+      </div>
+    </section>
 
     <script>
       const itemTemplates = {
