@@ -155,7 +155,7 @@ function renderItem(item, parent) {
       t.tspan('Clear:').font('weight', 'bold').newLine();
       t.wrap(item.clearDetail, 150 - padding * 2);
     });
-    text.move(padding, 150 - padding - text.bbox().height);
+    text.move(padding, 150 - padding - text.bbox().height).addOutline();
   }
 
   draw.rect(draw.width()-2, draw.height()-2).move(1, 1).attr({
