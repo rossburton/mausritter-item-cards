@@ -9,29 +9,46 @@
     <script src="templates.js"></script>
   </head>
 
-  <body>
+  <body onload="populateSelect();">
     <section class="section">
-      <div class="field">
-        <label class="label">Template</label>
-        <div class="select">
-          <select id="itemselect" oninput="updateTemplate();"></select>
+      <form id="form-item">
+        <div class="field">
+          <label class="label">Template</label>
+          <div class="select">
+            <select id="itemselect" oninput="updateFromTemplate();"></select>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div id="display" class="card-content"></div>
-        <footer class="card-footer">
-          <a href="#" class="card-footer-item" id="svglink" onclick="downloadsvg();">Download SVG</a>
-        </footer>
-      </div>
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" id="input-name" name="name" oninput="updateItem(); draw();"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="checkbox">Has Star</label>
+          <div class="control">
+            <input type="checkbox" id="input-star" name="star" oninput="updateItem(); draw();"/>
+          </div>
+        </div>
+
+        <div class="card">
+          <div id="display" class="card-content"></div>
+          <footer class="card-footer">
+            <a href="#" class="card-footer-item" id="svglink" onclick="downloadsvg();">Download SVG</a>
+          </footer>
+        </div>
+      </form>
     </section>
-
     <script>
       /*
        IDEAS
        - mechanics at bottom instead
+       - also use google fonts for gracefull fallback
        */
 
+    /* The item that is being edited */
     let item = undefined;
 
     function readFile(blob){
@@ -77,6 +94,7 @@
     }
 
     const itemselect = document.getElementById('itemselect');
+    const input_name = document.getElementById('input-name');
 
     function populateSelect() {
       for (const key in itemTemplates) {
@@ -85,9 +103,8 @@
         opt.text = itemTemplates[key].name;
         itemselect.add(opt, null);
       }
-      updateTemplate();
+      updateFromTemplate();
     }
-    populateSelect();
 
     function removeAllChildren(element) {
       while (element.firstChild) {
@@ -95,9 +112,28 @@
       }
     }
 
-    function updateTemplate() {
+    function updateFromTemplate() {
       item = Object.assign({}, itemTemplates[itemselect.value]);
+      input_name.value = item.name;
       draw();
+    }
+
+    function updateItem() {
+      const form = document.getElementById("form-item");
+      for (const element of form.elements) {
+        if (element.name) {
+          switch (element.type) {
+            case 'text':
+              item[element.name] = element.value;
+              break;
+            case 'checkbox':
+              item[element.name] = element.checked;
+              break;
+            default:
+              console.warn(`Unhandled element type ${element.type}`);
+          }
+        }
+      }
     }
 
     function draw() {
