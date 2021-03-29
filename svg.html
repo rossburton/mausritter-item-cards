@@ -24,105 +24,105 @@
         <div class="field">
           <label class="label">Name</label>
           <div class="control">
-            <input class="input" name="name" oninput="updateItem(); draw();"/>
+            <input class="input" name="name" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Image</label>
           <div class="select">
-            <select id="imageselect" name="imageSource" oninput="updateItem(); draw();"></select>
+            <select id="imageselect" name="imageSource" oninput="updateItem();"></select>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Damage</label>
           <div class="control">
-            <input class="input" name="damage" oninput="updateItem(); draw();"/>
+            <input class="input" name="damage" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Usage</label>
           <div class="control">
-            <input class="input" name="usage" type="number" min="0" max="9" oninput="updateItem(); draw();"/>
+            <input class="input" name="usage" type="number" min="0" max="9" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Class Detail</label>
           <div class="control">
-            <input class="input" name="classDetail" oninput="updateItem(); draw();"/>
+            <input class="input" name="classDetail" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Mechanics Detail</label>
           <div class="control">
-            <input class="input" name="mechanicDetail" oninput="updateItem(); draw();"/>
+            <input class="input" name="mechanicDetail" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Clear Detail</label>
           <div class="control">
-            <input class="input" name="clearDetail" oninput="updateItem(); draw();"/>
+            <input class="input" name="clearDetail" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="checkbox">Has Star</label>
           <div class="control">
-            <input type="checkbox" name="star" oninput="updateItem(); draw();"/>
+            <input type="checkbox" name="star" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="checkbox">Is Armour</label>
           <div class="control">
-            <input type="checkbox" name="armour" oninput="updateItem(); draw();"/>
+            <input type="checkbox" name="armour" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Width</label>
           <div class="control">
-            <input class="input" name="width" type="number" min="1" max="3" oninput="updateItem(); draw();"/>
+            <input class="input" name="width" type="number" min="1" max="3" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Height</label>
           <div class="control">
-            <input class="input" name="height" type="number" min="1" max="3" oninput="updateItem(); draw();"/>
+            <input class="input" name="height" type="number" min="1" max="3" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="checkbox">Border</label>
           <div class="control">
-            <input type="checkbox" name="border" oninput="updateItem(); draw();"/>
+            <input type="checkbox" name="border" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="checkbox">Divider</label>
           <div class="control">
-            <input type="checkbox" name="divider" oninput="updateItem(); draw();"/>
+            <input type="checkbox" name="divider" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="checkbox">Background Colour</label>
           <div class="control">
-            <input type="color" name="backgroundColor" oninput="updateItem(); draw();"/>
+            <input type="color" name="backgroundColor" oninput="updateItem();"/>
           </div>
         </div>
 
         <div class="field">
           <label class="checkbox">Foreground Colour</label>
           <div class="control">
-            <input type="color" name="foregroundColor" oninput="updateItem(); draw();"/>
+            <input type="color" name="foregroundColor" oninput="updateItem();"/>
           </div>
         </div>
 
@@ -257,6 +257,7 @@
           }
         }
       }
+      draw();
     }
 
     function draw() {
