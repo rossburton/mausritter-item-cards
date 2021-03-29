@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js" integrity="sha512-p3Tp2zn+wApBreZCgRkmMwnfpN8MUPXzzOihXx7iGYXqE7t6m9drY8HeyMeeFuDWiTFKrGUrq3jpbT0vX6zY/Q==" crossorigin="anonymous"></script>
     <script src="svgcard.js"></script>
     <script src="templates.js"></script>
+    <script src="images.js"></script>
   </head>
 
   <body onload="populateSelect();">
@@ -23,6 +24,13 @@
           <label class="label">Name</label>
           <div class="control">
             <input class="input" name="name" oninput="updateItem(); draw();"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Image</label>
+          <div class="select">
+            <select id="imageselect" name="imageSource" oninput="updateItem(); draw();"></select>
           </div>
         </div>
 
@@ -178,9 +186,17 @@
     }
 
     const itemselect = document.getElementById('itemselect');
-    const input_name = document.getElementById('input-name');
+    const imageselect = document.getElementById('imageselect');
 
     function populateSelect() {
+      /* Populate the images */
+      for (const elem of defaultImages) {
+        let opt = document.createElement("option");
+        opt.text = elem[0];
+        opt.value = elem[1]
+        imageselect.add(opt, null);
+      }
+      /* Populate the item templates */
       for (const key in itemTemplates) {
         let opt = document.createElement("option");
         opt.value = key;
@@ -206,6 +222,7 @@
             case 'color':
             case 'number':
             case 'text':
+            case 'select-one':
               element.value = item[element.name];
               break;
             case 'checkbox':
@@ -228,6 +245,7 @@
             case 'color':
             case 'number':
             case 'text':
+            case 'select-one':
               item[element.name] = element.value;
               break;
             case 'checkbox':
