@@ -103,6 +103,20 @@
           </div>
         </div>
 
+        <div class="field">
+          <label class="checkbox">Background Colour</label>
+          <div class="control">
+            <input type="color" name="backgroundColor" oninput="updateItem(); draw();"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="checkbox">Foreground Colour</label>
+          <div class="control">
+            <input type="color" name="foregroundColor" oninput="updateItem(); draw();"/>
+          </div>
+        </div>
+
         <div class="card">
           <div id="display" class="card-content"></div>
           <footer class="card-footer">
@@ -189,8 +203,9 @@
       for (const element of form.elements) {
         if (element.name) {
           switch (element.type) {
-            case 'text':
+            case 'color':
             case 'number':
+            case 'text':
               element.value = item[element.name];
               break;
             case 'checkbox':
@@ -210,8 +225,9 @@
       for (const element of form.elements) {
         if (element.name) {
           switch (element.type) {
-            case 'text':
+            case 'color':
             case 'number':
+            case 'text':
               item[element.name] = element.value;
               break;
             case 'checkbox':
