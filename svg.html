@@ -15,7 +15,7 @@
     <section class="section">
       <form id="form-item">
         <div class="field">
-          <label class="label">Template</label>
+          <label class="label">Use Template</label>
           <div class="select">
             <select id="itemselect" oninput="updateFromTemplate();"></select>
           </div>
@@ -33,6 +33,15 @@
           <div class="select">
             <select id="imageselect" name="imageSource" oninput="updateItem();"></select>
           </div>
+        </div>
+
+        <div class="file">
+          <label class="file-label">
+            <input class="file-input" id="imageinput" type="file" accept="image/*" onchange="updateCustomImage();">
+            <span class="file-cta">
+              <span class="file-label">Choose a file…</span>
+            </span>
+          </label>
         </div>
 
         <div class="field">
@@ -188,6 +197,7 @@
 
     const itemselect = document.getElementById('itemselect');
     const imageselect = document.getElementById('imageselect');
+    let customimage;
 
     function populateSelect() {
       /* Populate the images */
@@ -197,6 +207,10 @@
         opt.value = elem[1]
         imageselect.add(opt, null);
       }
+      customimage = document.createElement("option");
+      customimage.text = "Custom";
+      imageselect.add(customimage, null);
+
       /* Populate the item templates */
       for (const key in itemTemplates) {
         let opt = document.createElement("option");
@@ -205,6 +219,15 @@
         itemselect.add(opt, null);
       }
       updateFromTemplate();
+    }
+
+    function updateCustomImage() {
+      const input = document.getElementById('imageinput');
+      const url = URL.createObjectURL(input.files[0]);
+      customimage.value = url;
+      item.imageSource = url;
+      imageselect.value = url;
+      draw();
     }
 
     function removeAllChildren(element) {
