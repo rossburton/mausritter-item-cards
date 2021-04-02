@@ -2,7 +2,10 @@
   <head>
     <meta charset="utf-8"/>
     <title>SVG hack</title>
+    <!-- Brokenscript and Interstate -->
     <link rel="stylesheet" href="https://use.typekit.net/srk3hpl.css">
+    <!-- Texturina and Open Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&family=Texturina:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js" integrity="sha512-p3Tp2zn+wApBreZCgRkmMwnfpN8MUPXzzOihXx7iGYXqE7t6m9drY8HeyMeeFuDWiTFKrGUrq3jpbT0vX6zY/Q==" crossorigin="anonymous"></script>
@@ -134,6 +137,14 @@
             <input type="color" name="foregroundColor" oninput="updateItem();"/>
           </div>
         </div>
+
+        <div class="field">
+          <label class="checkbox">Use free fonts</label>
+          <div class="control">
+            <input type="checkbox" name="freeFonts" oninput="updateItem();"/>
+          </div>
+        </div>
+
 
         <div class="card">
           <div id="display" class="card-content"></div>
