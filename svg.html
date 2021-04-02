@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="utf-8"/>
-    <title>SVG hack</title>
+    <title>Mausritter Item Generator</title>
     <!-- Brokenscript and Interstate -->
     <link rel="stylesheet" href="https://use.typekit.net/srk3hpl.css">
     <!-- Texturina and Open Sans -->
@@ -12,10 +12,16 @@
     <script src="svgcard.js"></script>
     <script src="templates.js"></script>
     <script src="images.js"></script>
+    <style>
+      .title { font-family: ff-brokenscript-bc-web, serif; }
+    </style>
   </head>
 
-  <body onload="populateSelect();">
-    <section class="section">
+  <body onload="populateSelect();" class="section">
+    <h1 class="title">Mausritter Item Generator</h1>
+
+    <div class="columns">
+      <div class="box column is-one-third">
       <form id="form-item">
         <div class="field">
           <label class="label">Use Template</label>
@@ -144,21 +150,22 @@
             <input type="checkbox" name="freeFonts" oninput="updateItem();"/>
           </div>
         </div>
-
-
-        <div class="card">
-          <div id="display" class="card-content"></div>
-          <footer class="card-footer">
-            <a href="#" class="card-footer-item" id="svglink" onclick="downloadsvg();">Download SVG</a>
-          </footer>
-        </div>
       </form>
-    </section>
+    </div>
+
+    <div class="column">
+      <div class="card" style="top: 4rem; position: sticky;">
+        <div id="display" class="card-content"></div>
+        <footer class="card-footer">
+          <a href="#" class="card-footer-item" id="svglink" onclick="downloadsvg();">Download SVG</a>
+        </footer>
+      </div>
+    </div>
+    </div>
     <script>
       /*
        IDEAS
        - mechanics at bottom instead
-       - also use google fonts for gracefull fallback
        */
 
     /* The item that is being edited */
