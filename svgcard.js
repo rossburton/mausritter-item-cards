@@ -80,10 +80,18 @@ function renderItem(item, parent) {
     bodyFont = 'InterstateCondensed, interstate-condensed, sans-serif';
   }
 
-  let draw = SVG().addTo(parent ?? 'body').size(150 * item.width, 150 * item.height).viewbox(0, 0, 150 * item.width, 150 * item.height);
+  /* Width and height inside the SVG */
+  const width = 150 * item.width;
+  const height = 150 * item.height;
+
+  let draw = SVG().addTo(parent ?? 'body')
+    /* Draw a bit bigger for clarity */
+    .size(200 * item.width, 200 * item.height)
+    /* User dimensions used because I'm copying Isaac... */
+    .viewbox(0, 0, 150 * item.width, 150 * item.height);
   draw.remember('item', item);
 
-  let background = draw.rect(draw.width()-2, draw.height()-2).move(1, 1).fill(item.backgroundColor);
+  let background = draw.rect(width-2, height-2).move(1, 1).fill(item.backgroundColor);
 
   if ('backgroundImage' in item && item.backgroundImage.length) {
     var bg = draw.pattern(0, 0, function(add) {
@@ -96,19 +104,19 @@ function renderItem(item, parent) {
   }
 
   if (item.divider) {
-    draw.line(1, 35, draw.width()-2, 35).styleStroke();
+    draw.line(1, 35, width-2, 35).styleStroke();
     contentTop = 35;
   }
 
   if (item.imageSource.length) {
     let i = draw.image(item.imageSource, function (event) {
-      const maxWidth = draw.width() - padding * 2;
-      const maxHeight = draw.height() - 35 - padding * 2;
+      const maxWidth = width - padding * 2;
+      const maxHeight = height - 35 - padding * 2;
       /* Affinity doesn't respect SVG aspect ratio correctly so we can't
          just set to the size of the bounding box */
       const ratio = Math.min(maxWidth / i.width(), maxHeight / i.height());
       i.size(i.width() * ratio, i.height() * ratio)
-       .center(draw.width()/2, ((draw.height()-35)/2)+35)
+       .center(width/2, ((height-35)/2)+35)
        .dmove(item.nudgeX ?? 0, item.nudgeY ?? 0);
     }).css('mix-blend-mode', 'multiply');
     /* TODO still CSS */
@@ -136,12 +144,12 @@ function renderItem(item, parent) {
     let bbox = label.bbox().grow(5);
     let shape = item.armour ? group.octagon(bbox.width, bbox.height, 5) : group.rect(bbox.width, bbox.height);
     let box = shape.move(bbox.x, bbox.y).styleStroke().insertBefore(label).addOutline();
-    group.move(draw.width() - padding - bbox.width, 35 + padding);
+    group.move(width - padding - bbox.width, 35 + padding);
     contentTop = Math.max(contentTop, group.y() + group.height())
   }
 
   if (item.classDetail.length) {
-    let label = draw.plain(item.classDetail).move(padding, draw.height() - padding - 17);
+    let label = draw.plain(item.classDetail).move(padding, height - padding - 17);
     label.fill(item.foregroundColor);
     label.font({family: bodyFont, weight: 'bold', size: '15px'})
     label.addOutline();
@@ -167,7 +175,7 @@ function renderItem(item, parent) {
     text.move(padding, 150 - padding - text.bbox().height).addOutline();
   }
 
-  draw.rect(draw.width()-2, draw.height()-2).move(1, 1).attr({
+  draw.rect(width-2, height-2).move(1, 1).attr({
     'fill': 'none',
     'stroke': item.border ? item.foregroundColor : item.backgroundColor,
     'stroke-width': '2px'
