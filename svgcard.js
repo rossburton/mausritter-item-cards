@@ -110,8 +110,8 @@ function renderItem(item, parent) {
 
   if (item.imageSource.length) {
     let i = draw.image(item.imageSource, function (event) {
-      const maxWidth = width - padding * 2;
-      const maxHeight = height - 35 - padding * 2;
+      const maxWidth = width * item.scale/100 - padding * 2;
+      const maxHeight = height * item.scale/100 - 35 - padding * 2;
       /* Affinity doesn't respect SVG aspect ratio correctly so we can't
          just set to the size of the bounding box */
       const ratio = Math.min(maxWidth / i.width(), maxHeight / i.height());

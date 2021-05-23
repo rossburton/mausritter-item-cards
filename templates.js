@@ -9,6 +9,7 @@ const itemDefault = {
     clearDetail: '',
     classDetail: '',
     imageSource: '',
+    scale: 100,
     backgroundColor: '#ffffff',
     foregroundColor: '#000000',
     width: 1,
