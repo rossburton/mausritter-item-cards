@@ -1,5 +1,23 @@
 'use strict';
 
+const itemDefault = {
+    name: '',
+    usage: 3,
+    damage: '',
+    armour: false,
+    mechanicDetail: '',
+    clearDetail: '',
+    classDetail: '',
+    imageSource: '',
+    backgroundColor: '#ffffff',
+    foregroundColor: '#000000',
+    width: 1,
+    height: 1,
+    divider: true,
+    border: true,
+    star: false,
+};
+
 const itemTemplates = {
     limpetshield: {
         name: 'Limpet Shield',

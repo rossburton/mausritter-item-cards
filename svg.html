@@ -255,7 +255,8 @@
     }
 
     function updateFromTemplate() {
-      item = Object.assign({}, itemTemplates[itemselect.value]);
+      item = Object.assign({}, itemDefault);
+      item = Object.assign(item, itemTemplates[itemselect.value]);
 
       const form = document.getElementById("form-item");
       for (const element of form.elements) {
