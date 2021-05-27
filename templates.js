@@ -17,6 +17,7 @@ const itemDefault = {
     divider: true,
     border: true,
     star: false,
+    freeFonts: false
 };
 
 const itemTemplates = {
