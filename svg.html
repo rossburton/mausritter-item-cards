@@ -214,8 +214,7 @@
     function downloadsvg() {
       generatesvg('#display svg').then(function(dataurl) {
         let a = document.createElement('a');
-        // TODO: somehow use item.name + ".svg"
-        a.download = 'item.svg'
+        a.download = `${item.name}.svg`;
         a.href = dataurl;
         a.click();
       });
