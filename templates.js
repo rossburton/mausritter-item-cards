@@ -10,6 +10,8 @@ const itemDefault = {
     classDetail: '',
     imageSource: '',
     scale: 100,
+    nudgeX: 0,
+    nudgeY: 0,
     backgroundColor: '#ffffff',
     foregroundColor: '#000000',
     width: 1,
