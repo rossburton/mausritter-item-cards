@@ -165,6 +165,7 @@
         <div id="display" class="card-content"></div>
         <footer class="card-footer">
           <a href="#" class="card-footer-item" id="svglink" onclick="downloadsvg();">Download SVG</a>
+          <a href="#" class="card-footer-item" id="svglink" onclick="download_json();">Download JSON</a>
         </footer>
       </div>
     </div>
@@ -215,6 +216,17 @@
         let a = document.createElement('a');
         // TODO: somehow use item.name + ".svg"
         a.download = 'item.svg'
+        a.href = dataurl;
+        a.click();
+      });
+    }
+
+    /* Download the JSON */
+    function download_json() {
+      const blob = new Blob([JSON.stringify(item)], {type : 'application/json'});
+      readFile(blob).then(function(dataurl) {
+        let a = document.createElement('a');
+        a.download = `${item.name}.json`;
         a.href = dataurl;
         a.click();
       });
