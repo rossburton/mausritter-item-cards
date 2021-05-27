@@ -71,13 +71,14 @@ function renderItem(item, parent) {
   const padding = 8;
   let contentTop = 32;
 
-  let titleFont, bodyFont;
+  let titleFont, boldFont, italicFont;
   if (item.freeFonts ?? false) {
     titleFont = 'Texturina, serif';
-    bodyFont = 'Open Sans Condensed, sans-serif';
+    boldFont = 'Open Sans Condensed, sans-serif';
   } else {
     titleFont = 'BrokenscriptOT-CondBold, ff-brokenscript-bc-web, serif';
-    bodyFont = 'InterstateCondensed, interstate-condensed, sans-serif';
+    boldFont = 'InterstateCondensed-Bold, interstate-condensed, sans-serif';
+    italicFont = 'InterstateCondensed-LightItalic, InterstateCondensed, interstate-condensed, sans-serif';
   }
 
   /* Width and height inside the SVG */
@@ -139,7 +140,7 @@ function renderItem(item, parent) {
     let group = draw.group();
     let label = group.plain(item.damage);
     label.fill(item.foregroundColor);
-    label.font({family: bodyFont, weight: 'bold', size: '16px'})
+    label.font({family: boldFont, weight: 'bold', size: '16px'})
 
     let bbox = label.bbox().grow(5);
     let shape = item.armour ? group.octagon(bbox.width, bbox.height, 5) : group.rect(bbox.width, bbox.height);
@@ -151,14 +152,14 @@ function renderItem(item, parent) {
   if (item.classDetail.length) {
     let label = draw.plain(item.classDetail).move(padding, height - padding - 17);
     label.fill(item.foregroundColor);
-    label.font({family: bodyFont, weight: 'bold', size: '15px'})
+    label.font({family: boldFont, weight: 'bold', size: '15px'})
     label.addOutline();
   }
 
   if (item.mechanicDetail.length) {
     let text = draw.text(function(t) {
       t.fill(item.foregroundColor);
-      t.font({family: bodyFont, weight: 400, style: 'italic', size: '14px'})
+      t.font({family: italicFont, weight: 300, style: 'italic', size: '14px'})
       t.leading('1.2em');
       t.wrap(item.mechanicDetail, 150 - padding * 2);
     }).move(8, contentTop + padding/2).addOutline();
@@ -167,7 +168,7 @@ function renderItem(item, parent) {
   if (item.clearDetail.length) {
     let text = draw.text(function(t) {
       t.fill(item.foregroundColor);
-      t.font({family: bodyFont, weight: 400, style: 'italic', size: '14px'})
+      t.font({family: italicFont, weight: 300, style: 'italic', size: '14px'})
       t.leading('1.2em');
       t.tspan('Clear:').font('weight', 'bold').newLine();
       t.wrap(item.clearDetail, 150 - padding * 2);
