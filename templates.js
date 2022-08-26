@@ -10,6 +10,7 @@ const itemDefault = {
     classDetail: '',
     imageSource: '',
     scale: 100,
+    rotate:0,
     nudgeX: 0,
     nudgeY: 0,
     backgroundColor: '#ffffff',
@@ -18,7 +19,9 @@ const itemDefault = {
     height: 1,
     divider: true,
     border: true,
+    bwidth: 1,
     star: false,
+    whiteusage:true,
     freeFonts: false
 };
 
@@ -38,6 +41,7 @@ const itemTemplates = {
         height: 1,
         divider: true,
         border: true,
+        bwidth:1,
         star: false,
     },
     dagger: {

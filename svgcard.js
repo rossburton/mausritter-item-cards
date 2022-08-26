@@ -1,5 +1,7 @@
 'use strict';
 
+var invertperc = "0";
+
 SVG.extend(SVG.Box, {
   grow: function(amount) {
     this.x -= amount;
@@ -121,7 +123,8 @@ function renderItem(item, parent) {
        .dmove(item.nudgeX, item.nudgeY);
     }).css('mix-blend-mode', 'multiply')
     .css('transform','rotate('+item.rotate+'deg)')
-    .css('transform-origin','center');
+    .css('transform-origin','center')
+    .css('filter','invert(100%)');
     /* TODO still CSS */
   }
 
@@ -134,7 +137,14 @@ function renderItem(item, parent) {
   for (let i = 0; i < item.usage; i++) {
     const x = padding + (i % 3) * 18;
     const y = 35 + 10 + Math.floor(i / 3) * 18;
-    draw.circle(15).move(x, y).styleStroke().attr('fill', item.backgroundColor).addOutline();
+    if ( item.whiteusage )
+      {
+      draw.circle(15).move(x, y).styleStroke().attr('fill', 'white').addOutline();
+      }
+    else 
+      {
+      draw.circle(15).move(x, y).styleStroke().attr('fill', item.backgroundColor).addOutline();
+      }
     contentTop = Math.max(contentTop, y + 15);
   }
 
@@ -181,7 +191,7 @@ function renderItem(item, parent) {
   draw.rect(width-2, height-2).move(1, 1).attr({
     'fill': 'none',
     'stroke': item.border ? item.foregroundColor : item.backgroundColor,
-    'stroke-width': '2px'
+    'stroke-width': item.bwidth+'px'
   });
 
   return draw;
