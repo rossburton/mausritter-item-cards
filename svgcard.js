@@ -123,8 +123,7 @@ function renderItem(item, parent) {
        .dmove(item.nudgeX, item.nudgeY);
     }).css('mix-blend-mode', 'multiply')
     .css('transform','rotate('+item.rotate+'deg)')
-    .css('transform-origin','center')
-    .css('filter','invert(100%)');
+    .css('transform-origin','center');
     /* TODO still CSS */
   }
 
