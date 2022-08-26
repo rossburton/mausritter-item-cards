@@ -119,7 +119,8 @@ function renderItem(item, parent) {
       i.size(i.width() * ratio, i.height() * ratio)
        .center(width/2, ((height-35)/2)+35)
        .dmove(item.nudgeX, item.nudgeY);
-    }).css('mix-blend-mode', 'multiply');
+    }).css('mix-blend-mode', 'multiply')
+    .css('transform','rotate('+item.rotate+'deg)');
     /* TODO still CSS */
   }
 
