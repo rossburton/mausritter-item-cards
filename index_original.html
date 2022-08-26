@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Mausritter Item Card Generator</title>
+    <link rel="stylesheet" href="https://use.typekit.net/srk3hpl.css">
+
+    <script type="text/javascript">
+        function draw() {
+          var canvas = document.getElementById('canvas');
+          if (canvas.getContext) {
+            var ctx = canvas.getContext('2d');
+
+            let name = document.getElementById('name-input').value;
+            let desc = document.getElementById('desc-input').value;
+            let damage = document.getElementById('damage-input').value;
+            let usage = document.getElementById('usage-input').value;
+            let star = document.getElementById('star-toggle').checked;
+            let foreground = document.getElementById('foreground-colour').value;
+            let background = document.getElementById('background-colour').value;
+            let border = document.getElementById('border-toggle').checked;
+            let divider = document.getElementById('divider-toggle').checked;
+            let width = document.getElementById('width-input').value;
+            let height = document.getElementById('height-input').value;
+            let icon = document.querySelector('input[name="icon"]:checked').value;
+
+            const unit = 100;
+            const headerHeight = 28;
+            const offset = 5;
+
+            ctx.resetTransform();
+            // https://www.kirupa.com/canvas/canvas_high_dpi_retina.htm
+            let rect = canvas.getBoundingClientRect();
+            rect.width = width * unit;
+            rect.height = height * unit;
+            canvas.width = rect.width * devicePixelRatio;
+            canvas.height = rect.height * devicePixelRatio;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+            ctx.translate(0.5, 0.5);
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+
+            ctx.fillStyle = background;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.lineWidth = 1;
+            ctx.fillStyle = foreground;
+            ctx.strokeStyle = foreground;
+
+            if (border) {
+              ctx.strokeRect(0, 0, unit * width - 1, unit * height - 1);
+            }
+
+            if (divider) {
+              ctx.beginPath()
+              ctx.moveTo(0, headerHeight);
+              ctx.lineTo(unit * width - 1, headerHeight);
+              ctx.stroke();
+            }
+
+            if (star) {
+              name = "★ " + name;
+            }
+
+            if (name) {
+              ctx.font = "18px ff-brokenscript-bc-web, serif";
+              ctx.fillText(name, 5, headerHeight - 7);
+            }
+
+            if (desc) {
+              ctx.save();
+              ctx.font = "12px interstate-condensed, sans-serif";
+              ctx.textBaseline = "top";
+              ctx.fillText(desc, offset, headerHeight);
+              ctx.restore();
+            }
+
+            if (damage) {
+              ctx.font = "14px interstate-condensed, sans-serif";
+              metrics = ctx.measureText(damage);
+
+              let startX = unit * width - metrics.width
+              ctx.fillText(damage, startX - offset * 2, headerHeight + offset + 14);
+              ctx.strokeRect(startX - offset * 3, headerHeight + offset, metrics.width + offset * 2, 20);
+            }
+
+            if (usage) {
+              const radius = 5;
+
+              for (let i = 0; i < usage; i++) {
+                ctx.beginPath()
+                ctx.arc(radius + offset + (radius * 2 + offset) * i, headerHeight + offset + radius, radius, 0, 2 * Math.PI);
+                ctx.stroke();
+              }
+            }
+
+            if (icon) {
+              let image = document.getElementById(icon);
+              ctx.globalCompositeOperation = "multiply";
+              ctx.drawImage (image, offset, headerHeight+offset*2+10, 50, 50);
+            }
+          }
+        }
+    </script>
+    <style type="text/css">
+    h1 {
+      font-family: ff-brokenscript-bc-web, serif;
+    }
+    p {
+      font-family: interstate-condensed, sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+    </style>
+  </head>
+  <body onload="draw();">
+    <h1>Item Generator</h1>
+    <p>
+      <label for="name-input">Name</label>
+      <input type="text" id="name-input" value="Item" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="desc-input">Description</label>
+      <input type="text" id="desc-input" value="Heavy" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="width-input">Width</label>
+      <input type="number" id="width-input" min="1" max="3" value="1" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="height-input">Height</label>
+      <input type="number" id="height-input" min="1" max="3" value="1" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="damage-input">Damage</label>
+      <input type="text" id="damage-input" value="d3" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="usage-input">Usage</label>
+      <input type="number" id="usage-input" min="0" max="5" value="0" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="star-toggle">Star</label>
+      <input type="checkbox" id="star-toggle" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="foreground-colour">Foreground</label>
+      <input type="color" id="foreground-colour" value="#000000" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="background-colour">Background</label>
+      <input type="color" id="background-colour" value="#ffffff" oninput="draw();"/>
+    </p>
+    <p>
+      <label for="border-toggle">Border</label>
+      <input type="checkbox" id="border-toggle" checked oninput="draw();"/>
+    </p>
+    <p>
+      <label for="divider-toggle">Divider</label>
+      <input type="checkbox" id="divider-toggle" checked oninput="draw();"/>
+    </p>
+    <p>
+      <label>
+        <input type="radio" name="icon" value="" checked oninput="draw();">
+        None
+      </label>
+      <label>
+        <input type="radio" name="icon" value="spell-1" oninput="draw();">
+        <img id="spell-1" src="spell-1.png" width="50">
+      </label>
+      <label>
+        <input type="radio" name="icon" value="spell-2" oninput="draw();">
+        <img id="spell-2" src="spell-2.png" width="50">
+      </label>
+    </p>
+    <canvas id="canvas" width="350" height="350">
+      Sorry, I need HTML canvas.
+    </canvas>
+  </body>
+</html>
