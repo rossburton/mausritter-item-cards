@@ -120,7 +120,8 @@ function renderItem(item, parent) {
        .center(width/2, ((height-35)/2)+35)
        .dmove(item.nudgeX, item.nudgeY);
     }).css('mix-blend-mode', 'multiply')
-    .css('transform','rotate('+item.rotate+'deg)');
+    .css('transform','rotate('+item.rotate+'deg)')
+    .css('transform-origin','center');
     /* TODO still CSS */
   }
 
