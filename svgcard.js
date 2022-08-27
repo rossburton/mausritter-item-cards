@@ -176,11 +176,14 @@ function renderItem(item, parent) {
     text.move(padding, 150 - padding - text.bbox().height).addOutline();
   }
 
-  draw.rect(width-2, height-2).move(1, 1).attr({
-    'fill': 'none',
-    'stroke': item.border ? item.foregroundColor : item.backgroundColor,
-    'stroke-width': '2px'
-  });
+  if (item.border) {
+    let b = item.borderWidth / 2;
+    draw.rect(width - b * 2, height - b * 2).move(b, b).attr({
+      'fill': 'none',
+      'stroke': item.foregroundColor,
+      'stroke-width': item.borderWidth + 'px'
+    });
+  }
 
   return draw;
 }

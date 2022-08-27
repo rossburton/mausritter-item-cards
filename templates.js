@@ -19,6 +19,7 @@ const itemDefault = {
     height: 1,
     divider: true,
     border: true,
+    borderWidth: 2,
     star: false,
     freeFonts: false
 };
