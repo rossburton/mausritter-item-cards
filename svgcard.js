@@ -132,7 +132,7 @@ function renderItem(item, parent) {
   for (let i = 0; i < item.usage; i++) {
     const x = padding + (i % 3) * 18;
     const y = 35 + 10 + Math.floor(i / 3) * 18;
-    draw.circle(15).move(x, y).styleStroke().attr('fill', 'white').addOutline();
+    draw.circle(15).move(x, y).styleStroke().attr('fill', item.whiteUsage ? 'white' : item.backgroundColor).addOutline();
     contentTop = Math.max(contentTop, y + 15);
   }
 
