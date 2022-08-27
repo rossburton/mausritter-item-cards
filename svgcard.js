@@ -118,7 +118,9 @@ function renderItem(item, parent) {
       const ratio = Math.min(maxWidth / i.width(), maxHeight / i.height());
       i.size(i.width() * ratio, i.height() * ratio)
        .center(width/2, ((height-35)/2)+35)
-       .dmove(item.nudgeX, item.nudgeY);
+       .dmove(item.nudgeX, item.nudgeY)
+       .transform({rotate: item.rotate, origin: 'center'});
+
     }).css('mix-blend-mode', 'multiply');
     /* TODO still CSS */
   }

@@ -12,6 +12,7 @@ const itemDefault = {
     scale: 100,
     nudgeX: 0,
     nudgeY: 0,
+    rotate: 0,
     backgroundColor: '#ffffff',
     foregroundColor: '#000000',
     whiteUsage: false,
