@@ -19,7 +19,6 @@ const itemDefault = {
     width: 1,
     height: 1,
     divider: true,
-    border: true,
     borderWidth: 2,
     star: false,
     freeFonts: false
@@ -40,7 +39,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     dagger: {
@@ -58,7 +57,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     torches: {
@@ -75,7 +74,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     rations: {
@@ -112,7 +111,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     armour: {
@@ -130,7 +129,7 @@ const itemTemplates = {
         width: 1,
         height: 2,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     mussel: {
@@ -148,7 +147,7 @@ const itemTemplates = {
         width: 1,
         height: 2,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     spell: {
@@ -166,7 +165,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: true,
     },
     condition: {
@@ -184,7 +183,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: false,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     condition2: {
@@ -202,7 +201,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: true,
-        border: false,
+        borderWidth: 0,
         star: false,
     },
     razorclam: {
@@ -220,7 +219,7 @@ const itemTemplates = {
         width: 1,
         height: 2,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     net: {
@@ -238,7 +237,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     rope: {
@@ -256,7 +255,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     twine: {
@@ -274,7 +273,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: true,
-        border: true,
+        borderWidth: 2,
         star: false,
     },
     irritated: {
@@ -292,7 +291,7 @@ const itemTemplates = {
         width: 1,
         height: 1,
         divider: false,
-        border: true,
+        borderWidth: 2,
         star: false,
     }
 };

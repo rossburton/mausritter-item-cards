@@ -178,7 +178,7 @@ function renderItem(item, parent) {
     text.move(padding, 150 - padding - text.bbox().height).addOutline();
   }
 
-  if (item.border) {
+  if (item.borderWidth > 0) {
     let b = item.borderWidth / 2;
     draw.rect(width - b * 2, height - b * 2).move(b, b).attr({
       'fill': 'none',
