@@ -38,11 +38,11 @@ SVG.extend(SVG.Container, {
 SVG.extend(SVG.Element, {
   addOutline: function() {
     const item = this.root().remember('item');
-    return this.clone().attr({"stroke": item.backgroundColor, 'stroke-width': '3px', 'stroke-linejoin': 'round'}).insertBefore(this);
+    return this.clone().attr({"stroke": item.backgroundColour, 'stroke-width': '3px', 'stroke-linejoin': 'round'}).insertBefore(this);
   },
   styleStroke: function() {
     const item = this.root().remember('item');
-    this.attr({'fill': item.backgroundColor, 'stroke': item.foregroundColor, 'stroke-width': '1px' });
+    this.attr({'fill': item.backgroundColour, 'stroke': item.foregroundColour, 'stroke-width': '1px' });
     return this;
   }
 });
@@ -92,7 +92,7 @@ function renderItem(item, parent) {
     .viewbox(0, 0, 150 * item.width, 150 * item.height);
   draw.remember('item', item);
 
-  let background = draw.rect(width-2, height-2).move(1, 1).fill(item.backgroundColor);
+  let background = draw.rect(width-2, height-2).move(1, 1).fill(item.backgroundColour);
 
   if ('backgroundImage' in item && item.backgroundImage.length) {
     var bg = draw.pattern(0, 0, function(add) {
@@ -125,23 +125,23 @@ function renderItem(item, parent) {
     /* TODO still CSS */
   }
 
-  if (item.star) draw.star(5, 11, 5).center(17, 35/2).attr('fill', item.foregroundColor);
+  if (item.star) draw.star(5, 11, 5).center(17, 35/2).attr('fill', item.foregroundColour);
 
   if (item.name.length) {
-    draw.plain(item.name).move(item.star ? 32 : padding, 11).fill(item.foregroundColor).font({family: titleFont, weight: 'bold', size: '20px'});
+    draw.plain(item.name).move(item.star ? 32 : padding, 11).fill(item.foregroundColour).font({family: titleFont, weight: 'bold', size: '20px'});
   }
 
   for (let i = 0; i < item.usage; i++) {
     const x = padding + (i % 3) * 18;
     const y = 35 + 10 + Math.floor(i / 3) * 18;
-    draw.circle(15).move(x, y).styleStroke().attr('fill', item.whiteUsage ? 'white' : item.backgroundColor).addOutline();
+    draw.circle(15).move(x, y).styleStroke().attr('fill', item.whiteUsage ? 'white' : item.backgroundColour).addOutline();
     contentTop = Math.max(contentTop, y + 15);
   }
 
   if (item.damage.length) {
     let group = draw.group();
     let label = group.plain(item.damage);
-    label.fill(item.foregroundColor);
+    label.fill(item.foregroundColour);
     label.font({family: boldFont, weight: 'bold', size: '16px'})
 
     let bbox = label.bbox().grow(5);
@@ -153,14 +153,14 @@ function renderItem(item, parent) {
 
   if (item.classDetail.length) {
     let label = draw.plain(item.classDetail).move(padding, height - padding - 17);
-    label.fill(item.foregroundColor);
+    label.fill(item.foregroundColour);
     label.font({family: boldFont, weight: 'bold', size: '15px'})
     label.addOutline();
   }
 
   if (item.mechanicDetail.length) {
     let text = draw.text(function(t) {
-      t.fill(item.foregroundColor);
+      t.fill(item.foregroundColour);
       t.font({family: italicFont, weight: 300, style: 'italic', size: '14px'})
       t.leading('1.2em');
       t.wrap(item.mechanicDetail, 150 - padding * 2);
@@ -169,7 +169,7 @@ function renderItem(item, parent) {
 
   if (item.clearDetail.length) {
     let text = draw.text(function(t) {
-      t.fill(item.foregroundColor);
+      t.fill(item.foregroundColour);
       t.font({family: italicFont, weight: 300, style: 'italic', size: '14px'})
       t.leading('1.2em');
       t.tspan('Clear:').font('weight', 'bold').newLine();
@@ -182,7 +182,7 @@ function renderItem(item, parent) {
     let b = item.borderWidth / 2;
     draw.rect(width - b * 2, height - b * 2).move(b, b).attr({
       'fill': 'none',
-      'stroke': item.foregroundColor,
+      'stroke': item.foregroundColour,
       'stroke-width': item.borderWidth + 'px'
     });
   }
