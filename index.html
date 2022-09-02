@@ -1,13 +1,15 @@
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mausritter Item Generator</title>
     <!-- Brokenscript and Interstate -->
     <link rel="stylesheet" href="https://use.typekit.net/srk3hpl.css">
     <!-- Texturina and Open Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&family=Texturina:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js" integrity="sha512-p3Tp2zn+wApBreZCgRkmMwnfpN8MUPXzzOihXx7iGYXqE7t6m9drY8HeyMeeFuDWiTFKrGUrq3jpbT0vX6zY/Q==" crossorigin="anonymous"></script>
     <script src="svgcard.js"></script>
     <script src="templates.js"></script>
@@ -19,185 +21,142 @@
   </head>
 
   <body onload="populateSelect();" class="section">
-    <h1 class="title">Mausritter Item Generator</h1>
 
-    <div class="columns">
-      <div class="box column is-one-third">
-      <form id="form-item">
-        <div class="field">
-          <label class="label">Use Template</label>
-          <div class="select">
-            <select id="itemselect" oninput="updateFromTemplate();"></select>
+    <h1 class="display-1 title m-4">Mausritter Item Generator</h1>
+
+    <div class="container">
+      <div class="row align-items-start">
+        <div class="col-md-6">
+          <form class="row g-3" id="form-item">
+
+            <div class="col-md-12">
+              <label for="itemselect" class="form-label">Template</label>
+              <select id="itemselect" class="form-select" oninput="updateFromTemplate();"></select>
+            </div>
+
+            <div class="col-md-12">
+              <label for="name" class="form-label">Name</label>
+              <input class="form-control" id="name" name="name" oninput="updateItem();">
+            </div>
+
+            <div class="col-md-12">
+              <label for="imageselect" class="form-label">Image</label>
+              <select class="form-select" id="imageselect" name="imageSource" oninput="updateItem();"></select>
+            </div>
+
+            <div class="col-md-12">
+              <label for="imageselect" class="form-label">Upload custom image</label>
+              <input class="form-control" type="file" accept="image/*" id="imageselect" name="imageSource" oninput="updateCustomImage();"></select>
+            </div>
+
+            <div class="col-md-6">
+              <label for="scale" class="form-label">Scale</label>
+              <input class="form-control" id="scale" name="scale" type="number" min="10" max="200" oninput="updateItem();"/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="rotate" class="form-label">Rotation</label>
+              <input class="form-control" id="rotate" name="rotate" type="number" min="-180" max="180" oninput="updateItem();"/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="nudgeX" class="form-label">Nudge X</label>
+              <input class="form-control" id="nudgeX" name="nudgeX" type="number" min="-100" max="100" oninput="updateItem();"/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="nudgeY" class="form-label">Nudge Y</label>
+              <input class="form-control" id="nudgeY" name="nudgeY" type="number" min="-100" max="100" oninput="updateItem();"/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="damage" class="form-label">Damage</label>
+              <input class="form-control" id="damage" name="damage" oninput="updateItem();">
+            </div>
+
+            <div class="col-md-6">
+              <label for="usage" class="form-label">Usage</label>
+              <input class="form-control" id="usage" name="usage" type="number" min="0" max="9" oninput="updateItem();"/>
+            </div>
+
+            <div class="col-md-12">
+              <label for="classDetail" class="form-label">Class Detail</label>
+              <input class="form-control" id="classDetail" name="classDetail" oninput="updateItem();">
+            </div>
+
+            <div class="col-md-12">
+              <label for="mechanicDetail" class="form-label">Mechanics Detail</label>
+              <input class="form-control" id="mechanicDetail" name="mechanicDetail" oninput="updateItem();">
+            </div>
+
+            <div class="col-md-12">
+              <label for="clearDetail" class="form-label">Clear Detail</label>
+              <input class="form-control" id="clearDetail" name="clearDetail" oninput="updateItem();">
+            </div>
+
+            <div class="col-md-6">
+              <input class="form-check-input" type="checkbox" id="star" name="star" oninput="updateItem();">
+              <label for="star" class="form-label">Starred</label>
+            </div>
+
+            <div class="col-md-6">
+              <input class="form-check-input" type="checkbox" id="armour" name="armour" oninput="updateItem();">
+              <label for="armour" class="form-label">Is Armour</label>
+            </div>
+
+            <div class="col-md-6">
+              <label for="width" class="form-label">Width</label>
+              <input class="form-control" id="width" name="width" type="number" min="1" max="3" oninput="updateItem();"/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="height" class="form-label">Height</label>
+              <input class="form-control" id="height" name="height" type="number" min="1" max="3" oninput="updateItem();"/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="borderWidth" class="form-label">Border Width</label>
+              <input class="form-control" id="borderWidth" name="borderWidth" type="number" min="0" max="6" oninput="updateItem();"/>
+            </div>
+
+            <div class="col-md-6">
+              <input class="form-check-input" type="checkbox" id="divider" name="divider" oninput="updateItem();">
+              <label for="divider" class="form-label">Has Divider</label>
+            </div>
+
+            <div class="col-md-6">
+              <label for="backgroundColour" class="form-label">Background Colour</label>
+              <input class="form-control form-check-colour" type="color" id="backgroundColour" name="backgroundColour" oninput="updateItem();">
+            </div>
+
+            <div class="col-md-6">
+              <label for="foregroundColour" class="form-label">Foreground Colour</label>
+              <input class="form-control form-check-colour" type="color" id="foregroundColour" name="foregroundColour" oninput="updateItem();">
+            </div>
+
+            <div class="col-md-6">
+              <input class="form-check-input" type="checkbox" id="whiteUsage" name="whiteUsage" oninput="updateItem();">
+              <label for="whiteUsage" class="form-label">White Usage Background</label>
+            </div>
+
+            <div class="col-md-6">
+              <input class="form-check-input" type="checkbox" id="freeFonts" name="freeFonts" oninput="updateItem();">
+              <label for="freeFonts" class="form-label">Use free fonts</label>
+            </div>
+          </form>
+        </div>
+
+        <div class="col sticky-top">
+          <!-- TODO centre image -->
+          <div class="card">
+            <div id="display" class="card-img-top"></div>
+            <footer class="card-body">
+              <a href="#" class="card-link" id="svglink" onclick="downloadsvg();">Download SVG</a>
+              <a href="#" class="card-link" id="svglink" onclick="download_json();">Download JSON</a>
+            </footer>
           </div>
         </div>
-
-        <div class="field">
-          <label class="label">Name</label>
-          <div class="control">
-            <input class="input" name="name" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Image</label>
-          <div class="select">
-            <select id="imageselect" name="imageSource" oninput="updateItem();"></select>
-          </div>
-        </div>
-
-        <div class="file">
-          <label class="file-label">
-            <input class="file-input" id="imageinput" type="file" accept="image/*" onchange="updateCustomImage();">
-            <span class="file-cta">
-              <span class="file-label">Choose a file…</span>
-            </span>
-          </label>
-        </div>
-
-        <div class="field">
-          <label class="label">Image Scale</label>
-          <div class="control">
-            <input class="input" name="scale" type="number" min="10" max="200" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Image Rotate</label>
-          <div class="control">
-            <input class="input" name="rotate" type="number" min="-180" max="180" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Image Nudge X</label>
-          <div class="control">
-            <input class="input" name="nudgeX" type="number" min="-100" max="100" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Image Nudge Y</label>
-          <div class="control">
-            <input class="input" name="nudgeY" type="number" min="-100" max="100" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Damage</label>
-          <div class="control">
-            <input class="input" name="damage" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Usage</label>
-          <div class="control">
-            <input class="input" name="usage" type="number" min="0" max="9" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Class Detail</label>
-          <div class="control">
-            <input class="input" name="classDetail" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Mechanics Detail</label>
-          <div class="control">
-            <input class="input" name="mechanicDetail" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Clear Detail</label>
-          <div class="control">
-            <input class="input" name="clearDetail" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">Has Star</label>
-          <div class="control">
-            <input type="checkbox" name="star" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">Is Armour</label>
-          <div class="control">
-            <input type="checkbox" name="armour" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Width</label>
-          <div class="control">
-            <input class="input" name="width" type="number" min="1" max="3" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Height</label>
-          <div class="control">
-            <input class="input" name="height" type="number" min="1" max="3" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Border Width</label>
-          <div class="control">
-            <input class="input" name="borderWidth" type="number" min="0" max="6" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">Divider</label>
-          <div class="control">
-            <input type="checkbox" name="divider" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">Background Colour</label>
-          <div class="control">
-            <input type="color" name="backgroundColour" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">Foreground Colour</label>
-          <div class="control">
-            <input type="color" name="foregroundColour" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">White Usage Background</label>
-          <div class="control">
-            <input type="checkbox" name="whiteUsage" oninput="updateItem();"/>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">Use free fonts</label>
-          <div class="control">
-            <input type="checkbox" name="freeFonts" oninput="updateItem();"/>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <div class="column">
-      <div class="card" style="top: 4rem; position: sticky;">
-        <div id="display" class="card-content"></div>
-        <footer class="card-footer">
-          <a href="#" class="card-footer-item" id="svglink" onclick="downloadsvg();">Download SVG</a>
-          <a href="#" class="card-footer-item" id="svglink" onclick="download_json();">Download JSON</a>
-        </footer>
       </div>
-    </div>
     </div>
   </body>
 </html>
