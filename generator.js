@@ -86,9 +86,9 @@ function populateSelect() {
 }
 
 function updateCustomImage() {
-    const url = URL.createObjectURL(input.files[0]);
     const input = document.getElementById('imageinput');
     const imageselect = document.getElementById('imageselect');
+    const url = URL.createObjectURL(input.files[0]);
 
     customimage.value = url;
     item.imageSource = url;
