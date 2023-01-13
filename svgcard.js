@@ -182,7 +182,7 @@ function renderItem(item, parent) {
     let b = item.borderWidth / 2;
     draw.rect(width - b * 2, height - b * 2).move(b, b).attr({
       'fill': 'none',
-      'stroke': item.foregroundColour,
+      'stroke': item.borderColour,
       'stroke-width': item.borderWidth + 'px'
     });
   }

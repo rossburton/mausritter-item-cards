@@ -14,6 +14,7 @@ const itemDefault = {
     nudgeY: 0,
     rotate: 0,
     backgroundColour: '#ffffff',
+    borderColour: '#000000',
     foregroundColour: '#000000',
     whiteUsage: false,
     width: 1,
