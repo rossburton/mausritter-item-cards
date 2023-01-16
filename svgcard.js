@@ -71,12 +71,14 @@ function renderItem(item, parent) {
   const padding = 8;
   let contentTop = 32;
 
-  let titleFont, boldFont, italicFont;
+  let titleFont, normalFont, boldFont, italicFont;
   if (item.freeFonts ?? false) {
     titleFont = 'Texturina, serif';
-    boldFont = 'Open Sans Condensed, sans-serif';
+    normalFont = 'Open Sans Condensed, sans-serif';
+    boldFont = italicFont = normalFont;
   } else {
     titleFont = 'BrokenscriptOT-CondBold, ff-brokenscript-bc-web, serif';
+    normalFont = 'InterstateCondensed, interstate-condensed, sans-serif';
     boldFont = 'InterstateCondensed-Bold, interstate-condensed, sans-serif';
     italicFont = 'InterstateCondensed-LightItalic, InterstateCondensed, interstate-condensed, sans-serif';
   }
@@ -170,7 +172,7 @@ function renderItem(item, parent) {
   if (item.clearDetail.length) {
     let text = draw.text(function(t) {
       t.fill(item.foregroundColour);
-      t.font({family: italicFont, weight: 300, style: 'italic', size: '14px'})
+      t.font({family: normalFont, weight: 300, size: '14px'})
       t.leading('1.2em');
       t.tspan('Clear:').font('weight', 'bold').newLine();
       t.wrap(item.clearDetail, 150 - padding * 2);
