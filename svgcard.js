@@ -153,13 +153,6 @@ function renderItem(item, parent) {
     contentTop = Math.max(contentTop, group.y() + group.height())
   }
 
-  if (item.classDetail.length) {
-    let label = draw.plain(item.classDetail).move(padding, height - padding - 17);
-    label.fill(item.foregroundColour);
-    label.font({family: boldFont, weight: 'bold', size: '15px'})
-    label.addOutline();
-  }
-
   if (item.mechanicDetail.length) {
     let text = draw.text(function(t) {
       t.fill(item.foregroundColour);
@@ -169,15 +162,19 @@ function renderItem(item, parent) {
     }).move(8, contentTop + padding/2).addOutline();
   }
 
-  if (item.clearDetail.length) {
+  if (item.detailSummary.length || item.detailSpecifics.length) {
     let text = draw.text(function(t) {
       t.fill(item.foregroundColour);
       t.font({family: normalFont, weight: 300, size: '14px'})
       t.leading('1.2em');
-      t.tspan('Clear:').font('weight', 'bold').newLine();
-      t.wrap(item.clearDetail, 150 - padding * 2);
+      if (item.detailSummary.length) {
+        t.tspan(item.detailSummary).font({family: boldFont, weight: 'bold'}).newLine();
+      }
+      if (item.detailSpecifics.length) {
+        t.wrap(item.detailSpecifics, 150 - padding * 2);
+      }
     });
-    text.move(padding, 150 - padding - text.bbox().height).addOutline();
+    text.move(padding, height - padding - text.bbox().height).addOutline();
   }
 
   if (item.borderWidth > 0) {
