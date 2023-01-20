@@ -78,9 +78,9 @@ function renderItem(item, parent) {
     boldFont = italicFont = normalFont;
   } else {
     titleFont = 'BrokenscriptOT-CondBold, ff-brokenscript-bc-web, serif';
-    normalFont = 'InterstateCondensed, interstate-condensed, sans-serif';
+    normalFont = 'InterstateCondensed-Light, interstate-condensed, sans-serif';
     boldFont = 'InterstateCondensed-Bold, interstate-condensed, sans-serif';
-    italicFont = 'InterstateCondensed-LightItalic, InterstateCondensed, interstate-condensed, sans-serif';
+    italicFont = 'InterstateCondensed-LightItalic, interstate-condensed, sans-serif';
   }
 
   /* Width and height inside the SVG */
