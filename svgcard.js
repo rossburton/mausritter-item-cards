@@ -107,7 +107,7 @@ function renderItem(item, parent) {
   }
 
   if (item.divider) {
-    draw.line(1, 35, width-2, 35).styleStroke();
+    draw.line(0, 35, width, 35).styleStroke();
     contentTop = 35;
   }
 
