@@ -144,9 +144,9 @@ function renderItem(item, parent) {
     let group = draw.group();
     let label = group.plain(item.damage);
     label.fill(item.foregroundColour);
-    label.font({family: boldFont, weight: 'bold', size: '16px'})
+    label.font({family: boldFont, weight: 'bold', size: '18px'})
 
-    let bbox = label.bbox().grow(5);
+    let bbox = label.bbox().grow(7);
     let shape = item.armour ? group.octagon(bbox.width, bbox.height, 5) : group.rect(bbox.width, bbox.height);
     let box = shape.move(bbox.x, bbox.y).styleStroke().insertBefore(label).addOutline();
     group.move(width - padding - bbox.width, 35 + padding);
@@ -156,7 +156,7 @@ function renderItem(item, parent) {
   if (item.mechanicDetail.length) {
     let text = draw.text(function(t) {
       t.fill(item.foregroundColour);
-      t.font({family: italicFont, weight: 300, style: 'italic', size: '14px'})
+      t.font({family: italicFont, weight: 300, style: 'italic', size: '15px'})
       t.leading('1.2em');
       t.wrap(item.mechanicDetail, width - padding * 2);
     }).move(8, contentTop + padding/2).addOutline();
@@ -165,7 +165,7 @@ function renderItem(item, parent) {
   if (item.detailSummary.length || item.detailSpecifics.length) {
     let text = draw.text(function(t) {
       t.fill(item.foregroundColour);
-      t.font({family: normalFont, weight: 300, size: '14px'})
+      t.font({family: normalFont, weight: 300, size: '15px'})
       t.leading('1.2em');
       if (item.detailSummary.length) {
         t.tspan(item.detailSummary).font({family: boldFont, weight: 'bold'}).newLine();
