@@ -158,7 +158,7 @@ function renderItem(item, parent) {
       t.fill(item.foregroundColour);
       t.font({family: italicFont, weight: 300, style: 'italic', size: '14px'})
       t.leading('1.2em');
-      t.wrap(item.mechanicDetail, 150 - padding * 2);
+      t.wrap(item.mechanicDetail, width - padding * 2);
     }).move(8, contentTop + padding/2).addOutline();
   }
 
@@ -171,7 +171,7 @@ function renderItem(item, parent) {
         t.tspan(item.detailSummary).font({family: boldFont, weight: 'bold'}).newLine();
       }
       if (item.detailSpecifics.length) {
-        t.wrap(item.detailSpecifics, 150 - padding * 2);
+        t.wrap(item.detailSpecifics, width - padding * 2);
       }
     });
     text.move(padding, height - padding - text.bbox().height).addOutline();
