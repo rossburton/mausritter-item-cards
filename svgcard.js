@@ -125,6 +125,11 @@ function renderItem(item, parent) {
 
     }).css('mix-blend-mode', 'multiply');
     /* TODO still CSS */
+
+    if (item.divider) {
+      let clip = draw.rect(width, height - contentTop).move(0, contentTop);
+      i.clipWith(clip);
+    }
   }
 
   if (item.star) draw.star(5, 11, 5).center(17, 35/2).attr('fill', item.foregroundColour);
