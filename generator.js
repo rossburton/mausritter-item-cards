@@ -19,7 +19,7 @@ function readFile(blob) {
 function generatesvg(selector) {
     let promises = [];
     /* Iterate through the images and replace URI references with embedded data: URLs */
-    let svg = SVG(selector).clone();
+    let svg = SVG(selector).clone(true, false);
     for (let image of svg.find('image')) {
         p = fetch(image.attr('href')).then(function (response) {
             return response.blob();
